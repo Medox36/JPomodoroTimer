@@ -1,11 +1,5 @@
 import javax.swing.*;
-import javax.swing.plaf.MenuItemUI;
-import javax.swing.plaf.metal.MetalCheckBoxUI;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.nio.file.WatchEvent;
-
 
 public class PomodoroGUI {
     private Color red, lightRed, blue, lightBlue, darkBlue, lightDarkBlue;
