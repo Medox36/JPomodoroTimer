@@ -50,7 +50,7 @@ public class PomodoroGUI {
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setSize(700,700);
+        frame.setSize(500,600);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Pomodoro Timer");
         frame.setIconImage(frameIcon.getImage());
@@ -62,12 +62,12 @@ public class PomodoroGUI {
         rootRed.setSize(tabbedPane.getSize());
 
         redTime.setForeground(Color.WHITE);
-        redTime.setFont(new Font("Dialog",Font.PLAIN,135));
+        redTime.setFont(new Font("Dialog",Font.PLAIN,125));
         redTime.setText("00:00");
-        redTime.setBounds(30, 25, 340, 150);
+        redTime.setBounds(15, 25, 320, 150);
 
         redTimer.setBackground(lightRed);
-        redTimer.setBounds(146, 100, 400, 200);
+        redTimer.setBounds(71, 50, 350, 200);
         redTimer.setLayout(null);
 
         redTimer.add(redTime, BorderLayout.CENTER);
@@ -80,12 +80,12 @@ public class PomodoroGUI {
         rootBlue.setSize(tabbedPane.getSize());
 
         blueTime.setForeground(Color.WHITE);
-        blueTime.setFont(new Font("Dialog",Font.PLAIN,135));
+        blueTime.setFont(new Font("Dialog",Font.PLAIN,125));
         blueTime.setText("00:00");
-        blueTime.setBounds(30, 25, 340, 150);
+        blueTime.setBounds(15, 25, 320, 150);
 
         blueTimer.setBackground(lightBlue);
-        blueTimer.setBounds(146, 100, 400, 200);
+        blueTimer.setBounds(71, 50, 350, 200);
         blueTimer.setLayout(null);
 
         blueTimer.add(blueTime);
@@ -98,12 +98,12 @@ public class PomodoroGUI {
         rootDarkBlue.setSize(tabbedPane.getSize());
 
         darkBlueTime.setForeground(Color.WHITE);
-        darkBlueTime.setFont(new Font("Dialog",Font.PLAIN,135));
+        darkBlueTime.setFont(new Font("Dialog",Font.PLAIN,125));
         darkBlueTime.setText("00:00");
-        darkBlueTime.setBounds(30, 25, 340, 150);
+        darkBlueTime.setBounds(15, 25, 320, 150);
 
         darkBlueTimer.setBackground(lightDarkBlue);
-        darkBlueTimer.setBounds(146, 100, 400, 200);
+        darkBlueTimer.setBounds(71, 50, 350, 200);
         darkBlueTimer.setLayout(null);
 
         darkBlueTimer.add(darkBlueTime);
