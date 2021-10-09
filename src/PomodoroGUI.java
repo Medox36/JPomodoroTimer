@@ -6,12 +6,13 @@ public class PomodoroGUI {
     private Color red, lightRed, blue, lightBlue, darkBlue, lightDarkBlue;
     private JFrame frame;
     private JMenuBar menuBar;
-    private JMenu menu;
-    private JMenuItem menuItem;
+    private JMenu settingsMenu;
+    private JMenuItem saveSettings, loadSettings;
+    private JCheckBoxMenuItem autoBreaks, autoPomodoro, notifications;
     private JTabbedPane tabbedPane;
     private JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
     private JLabel redTime, blueTime, darkBlueTime;
-    private ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2;
+    private ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2, settings, settingsSave, settingsLoad;
 
     public PomodoroGUI() {
         red = new Color(0xdb524d);
@@ -22,6 +23,12 @@ public class PomodoroGUI {
         lightDarkBlue = new Color(0x568bb1);
         frame = new JFrame();
         menuBar = new JMenuBar();
+        settingsMenu = new JMenu();
+        saveSettings = new JMenuItem();
+        loadSettings = new JMenuItem();
+        autoBreaks = new JCheckBoxMenuItem();
+        autoPomodoro = new JCheckBoxMenuItem();
+        notifications = new JCheckBoxMenuItem();
 
         tabbedPane = new JTabbedPane();
         rootRed = new JPanel();
@@ -37,6 +44,9 @@ public class PomodoroGUI {
         tomato = new ImageIcon("images/tomato.png");
         coffeeCup = new ImageIcon("images/coffee-cup.png");
         coffeeCup2 = new ImageIcon("images/coffee-cup2.png");
+        settings = new ImageIcon("images/setting-lines.png");
+        settingsSave = new ImageIcon("images/setting.png");
+        settingsLoad = new ImageIcon("images/open-file.png");
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -100,6 +110,16 @@ public class PomodoroGUI {
         rootDarkBlue.add(darkBlueTimer);
 
 
+        saveSettings.setIcon(settingsSave);
+        saveSettings.setText("Save Settings");
+        loadSettings.setIcon(settingsLoad);
+        loadSettings.setText("Load Settings");
+        notifications.setText("Notifications");
+
+        autoBreaks.setText("Auto start Breaks");
+        autoPomodoro.setText("Auto start Pomodoros?");
+
+        menuBar.setBackground(new Color(0xE0E0E0));
 
         tabbedPane.setBounds(frame.getBounds());
         tabbedPane.setSize(frame.getSize());
@@ -107,7 +127,21 @@ public class PomodoroGUI {
         tabbedPane.addTab("Short Break", coffeeCup, rootBlue);
         tabbedPane.addTab("Long Break", coffeeCup2, rootDarkBlue);
 
+        settingsMenu.setText("Settings");
+        settingsMenu.setIcon(settings);
+        settingsMenu.setIconTextGap(8);
 
+        settingsMenu.add(autoBreaks);
+        settingsMenu.add(autoPomodoro);
+        settingsMenu.addSeparator();
+        settingsMenu.add(notifications);
+        settingsMenu.addSeparator();
+        settingsMenu.add(saveSettings);
+        settingsMenu.add(loadSettings);
+
+        menuBar.add(settingsMenu);
+
+        frame.setJMenuBar(menuBar);
         frame.getContentPane().add(tabbedPane);
         frame.setVisible(true);
     }
