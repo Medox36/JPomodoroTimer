@@ -1,5 +1,10 @@
 import javax.swing.*;
+import javax.swing.plaf.MenuItemUI;
+import javax.swing.plaf.metal.MetalCheckBoxUI;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.nio.file.WatchEvent;
 
 
 public class PomodoroGUI {
@@ -12,7 +17,7 @@ public class PomodoroGUI {
     private JTabbedPane tabbedPane;
     private JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
     private JLabel redTime, blueTime, darkBlueTime;
-    private ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2, settings, settingsSave, settingsLoad;
+    private ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2, settings, settingsSave, settingsLoad, notification;
 
     public PomodoroGUI() {
         red = new Color(0xdb524d);
@@ -22,13 +27,6 @@ public class PomodoroGUI {
         darkBlue = new Color(0x437ea8);
         lightDarkBlue = new Color(0x568bb1);
         frame = new JFrame();
-        menuBar = new JMenuBar();
-        settingsMenu = new JMenu();
-        saveSettings = new JMenuItem();
-        loadSettings = new JMenuItem();
-        autoBreaks = new JCheckBoxMenuItem();
-        autoPomodoro = new JCheckBoxMenuItem();
-        notifications = new JCheckBoxMenuItem();
 
         tabbedPane = new JTabbedPane();
         rootRed = new JPanel();
@@ -47,6 +45,14 @@ public class PomodoroGUI {
         settings = new ImageIcon("images/setting-lines.png");
         settingsSave = new ImageIcon("images/setting.png");
         settingsLoad = new ImageIcon("images/open-file.png");
+        notification = new ImageIcon("images/notification.png");
+        menuBar = new JMenuBar();
+        settingsMenu = new JMenu();
+        saveSettings = new JMenuItem("Save Settings", settingsSave);
+        loadSettings = new JMenuItem("Load Settings", settingsLoad);
+        autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
+        autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
+        notifications = new JCheckBoxMenuItem("Notifications",notification);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -109,15 +115,6 @@ public class PomodoroGUI {
         darkBlueTimer.add(darkBlueTime);
         rootDarkBlue.add(darkBlueTimer);
 
-
-        saveSettings.setIcon(settingsSave);
-        saveSettings.setText("Save Settings");
-        loadSettings.setIcon(settingsLoad);
-        loadSettings.setText("Load Settings");
-        notifications.setText("Notifications");
-
-        autoBreaks.setText("Auto start Breaks");
-        autoPomodoro.setText("Auto start Pomodoros?");
 
         menuBar.setBackground(new Color(0xE0E0E0));
 
