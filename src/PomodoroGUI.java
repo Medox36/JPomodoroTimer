@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PomodoroGUI {
     private Color red, lightRed, blue, lightBlue, darkBlue, lightDarkBlue;
@@ -7,6 +9,9 @@ public class PomodoroGUI {
     private JMenuBar menuBar;
     private JMenu settingsMenu, notifications, redTimes, blueTimes, darkBlueTimes;
     private JMenuItem saveSettings, loadSettings, noSound, bell, digital;
+    private JMenuItem red30, red25, red20, red15, redCustom;
+    private JMenuItem blue15, blue10, blue5, blueCustom;
+    private JMenuItem darkBlue20, darkBlue15, darkBlue10, darkBlueCustom;
     private JCheckBoxMenuItem autoBreaks, autoPomodoro;
     private JTabbedPane tabbedPane;
     private JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
@@ -51,6 +56,19 @@ public class PomodoroGUI {
         noSound = new JMenuItem("off");
         bell = new JMenuItem("Bell");
         digital = new JMenuItem("Digital");
+        red30 = new JMenuItem("30 min");
+        red25 = new JMenuItem("25 min");
+        red20 = new JMenuItem("20 min");
+        red15 = new JMenuItem("15 min");
+        blue15 = new JMenuItem("15 min");
+        blue10 = new JMenuItem("10 min");
+        blue5 = new JMenuItem("5 min");
+        darkBlue20 = new JMenuItem("20 min");
+        darkBlue15 = new JMenuItem("15 min");
+        darkBlue10 = new JMenuItem("10 min");
+        darkBlueCustom = new JMenuItem("Custom Time");
+        blueCustom = new JMenuItem("Custom Time");
+        redCustom = new JMenuItem("Custom Time");
         autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
         autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
 
@@ -129,14 +147,29 @@ public class PomodoroGUI {
         settingsMenu.setIconTextGap(8);
 
         redTimes.setIcon(tomato);
+        redTimes.add(red30);
+        redTimes.add(red25);
+        redTimes.add(red20);
+        redTimes.add(red15);
+        redTimes.add(redCustom);
+
         blueTimes.setIcon(coffeeCup);
+        blueTimes.add(blue15);
+        blueTimes.add(blue10);
+        blueTimes.add(blue5);
+        blueTimes.add(blueCustom);
+
         darkBlueTimes.setIcon(coffeeCup2);
+        darkBlueTimes.add(darkBlue20);
+        darkBlueTimes.add(darkBlue15);
+        darkBlueTimes.add(darkBlue10);
+        darkBlueTimes.add(darkBlueCustom);
+
 
         notifications.setIcon(notification);
         notifications.add(noSound);
         notifications.add(bell);
         notifications.add(digital);
-
         settingsMenu.add(autoBreaks);
         settingsMenu.add(autoPomodoro);
         settingsMenu.addSeparator();
