@@ -5,9 +5,9 @@ public class PomodoroGUI {
     private Color red, lightRed, blue, lightBlue, darkBlue, lightDarkBlue;
     private JFrame frame;
     private JMenuBar menuBar;
-    private JMenu settingsMenu;
-    private JMenuItem saveSettings, loadSettings;
-    private JCheckBoxMenuItem autoBreaks, autoPomodoro, notifications;
+    private JMenu settingsMenu, notifications, redTimes, blueTimes, darkBlueTimes;
+    private JMenuItem saveSettings, loadSettings, noSound, bell, digital;
+    private JCheckBoxMenuItem autoBreaks, autoPomodoro;
     private JTabbedPane tabbedPane;
     private JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
     private JLabel redTime, blueTime, darkBlueTime;
@@ -42,11 +42,17 @@ public class PomodoroGUI {
         notification = new ImageIcon("images/notification.png");
         menuBar = new JMenuBar();
         settingsMenu = new JMenu();
+        notifications = new JMenu("Notifications");
+        redTimes = new JMenu("Pomodoro Time");
+        blueTimes = new JMenu("Short Break Time");
+        darkBlueTimes = new JMenu("Long Break Time");
         saveSettings = new JMenuItem("Save Settings", settingsSave);
         loadSettings = new JMenuItem("Load Settings", settingsLoad);
+        noSound = new JMenuItem("off");
+        bell = new JMenuItem("Bell");
+        digital = new JMenuItem("Digital");
         autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
         autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
-        notifications = new JCheckBoxMenuItem("Notifications",notification);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -122,8 +128,21 @@ public class PomodoroGUI {
         settingsMenu.setIcon(settings);
         settingsMenu.setIconTextGap(8);
 
+        redTimes.setIcon(tomato);
+        blueTimes.setIcon(coffeeCup);
+        darkBlueTimes.setIcon(coffeeCup2);
+
+        notifications.setIcon(notification);
+        notifications.add(noSound);
+        notifications.add(bell);
+        notifications.add(digital);
+
         settingsMenu.add(autoBreaks);
         settingsMenu.add(autoPomodoro);
+        settingsMenu.addSeparator();
+        settingsMenu.add(redTimes);
+        settingsMenu.add(blueTimes);
+        settingsMenu.add(darkBlueTimes);
         settingsMenu.addSeparator();
         settingsMenu.add(notifications);
         settingsMenu.addSeparator();
