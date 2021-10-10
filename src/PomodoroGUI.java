@@ -86,9 +86,9 @@ public class PomodoroGUI {
         rootRed.setSize(tabbedPane.getSize());
 
         redTime.setForeground(Color.WHITE);
-        redTime.setFont(new Font("Dialog",Font.PLAIN,125));
+        redTime.setFont(new Font("DSEG7 Classic",Font.PLAIN,90));
         redTime.setText("00:00");
-        redTime.setBounds(15, 25, 320, 150);
+        redTime.setBounds(20, 25, 320, 150);
 
         redTimer.setBackground(lightRed);
         redTimer.setBounds(71, 50, 350, 200);
@@ -104,9 +104,9 @@ public class PomodoroGUI {
         rootBlue.setSize(tabbedPane.getSize());
 
         blueTime.setForeground(Color.WHITE);
-        blueTime.setFont(new Font("Dialog",Font.PLAIN,125));
+        blueTime.setFont(new Font("DSEG7 Classic",Font.PLAIN,90));
         blueTime.setText("00:00");
-        blueTime.setBounds(15, 25, 320, 150);
+        blueTime.setBounds(20, 25, 320, 150);
 
         blueTimer.setBackground(lightBlue);
         blueTimer.setBounds(71, 50, 350, 200);
@@ -122,9 +122,9 @@ public class PomodoroGUI {
         rootDarkBlue.setSize(tabbedPane.getSize());
 
         darkBlueTime.setForeground(Color.WHITE);
-        darkBlueTime.setFont(new Font("Dialog",Font.PLAIN,125));
+        darkBlueTime.setFont(new Font("DSEG7 Classic",Font.PLAIN,90));
         darkBlueTime.setText("00:00");
-        darkBlueTime.setBounds(15, 25, 320, 150);
+        darkBlueTime.setBounds(20, 25, 320, 150);
 
         darkBlueTimer.setBackground(lightDarkBlue);
         darkBlueTimer.setBounds(71, 50, 350, 200);
