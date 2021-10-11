@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.time.*;
 
 public class PomodoroGUI {
     private Color red, lightRed, blue, lightBlue, darkBlue, lightDarkBlue;
@@ -208,6 +209,19 @@ public class PomodoroGUI {
         frame.getContentPane().add(tabbedPane);
         frame.setVisible(true);
     }
+
+    public void setRedTime(LocalTime time) {
+        redTime.setText(String.valueOf(time));
+    }
+
+    public void setBlueTime(LocalTime time) {
+        blueTime.setText(String.valueOf(time));
+    }
+
+    public void setDarkBlueTime(LocalTime time) {
+        darkBlueTime.setText(String.valueOf(time));
+    }
+
 
 
 }
