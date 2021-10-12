@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.time.*;
+import java.util.Objects;
 
 public class PomodoroGUI {
     private Color red, lightRed, blue, lightBlue, darkBlue, lightDarkBlue;
@@ -19,7 +20,7 @@ public class PomodoroGUI {
     private JLabel redTime, blueTime, darkBlueTime;
     private ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2, settings, settingsSave, settingsLoad, notification;
     private ButtonGroup notificationGroup;
-    private ActionListener notificationListener;
+    private ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu;
 
     public PomodoroGUI() {
         red = new Color(0xdb524d);
@@ -40,14 +41,14 @@ public class PomodoroGUI {
         redTime = new JLabel();
         blueTime = new JLabel();
         darkBlueTime = new JLabel();
-        frameIcon = new ImageIcon("res/images/intelligenter-timer.png");
-        tomato = new ImageIcon("res/images/tomato.png");
-        coffeeCup = new ImageIcon("res/images/coffee-cup.png");
-        coffeeCup2 = new ImageIcon("res/images/coffee-cup2.png");
-        settings = new ImageIcon("res/images/setting-lines.png");
-        settingsSave = new ImageIcon("res/images/setting.png");
-        settingsLoad = new ImageIcon("res/images/open-file.png");
-        notification = new ImageIcon("res/images/notification.png");
+        frameIcon = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/intelligenter-timer.png")));
+        tomato = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/tomato.png")));
+        coffeeCup = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup.png")));
+        coffeeCup2 = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup2.png")));
+        settings = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/setting-lines.png")));
+        settingsSave = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/setting.png")));
+        settingsLoad = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/open-file.png")));
+        notification = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/notification.png")));
         menuBar = new JMenuBar();
         settingsMenu = new JMenu();
         notifications = new JMenu("Notifications");
@@ -74,10 +75,33 @@ public class PomodoroGUI {
         darkBlueCustom = new JMenuItem("Custom Time");
         autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
         autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
+
         notificationListener = e -> {
             System.out.println(e.getSource());
             System.out.println("\t" + e.getActionCommand());
         };
+        redTimeMenu = e -> {
+            String str = e.getActionCommand();
+            switch (str) {
+                case "30:00", "25:00", "20:00", "15:00" -> setRedTime(str);
+                case "custom" -> setRedTimeWithFrame();
+            }
+        };
+        blueTimeMenu = e -> {
+            String str = e.getActionCommand();
+            switch (str) {
+                case "15:00", "10:00", "05:00" -> setRedTime(str);
+                case "custom" -> setBlueTimeWithFrame();
+            }
+        };
+        darkBlueTimeMenu = e -> {
+            String str = e.getActionCommand();
+            switch (str) {
+                case "20:00", "15:00", "10:00" -> setRedTime(str);
+                case "custom" -> setDarkBlueTimeWithFrame();
+            }
+        };
+
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -155,6 +179,26 @@ public class PomodoroGUI {
         settingsMenu.setIcon(settings);
         settingsMenu.setIconTextGap(8);
 
+        red30.setActionCommand("30:00");
+        red25.setActionCommand("25:00");
+        red20.setActionCommand("20:00");
+        red15.setActionCommand("15:00");
+        redCustom.setActionCommand("custom");
+        redCustom.addActionListener(redTimeMenu);
+
+        blue15.setActionCommand("15:00");
+        blue10.setActionCommand("10:00");
+        blue5.setActionCommand("05:00");
+        blueCustom.setActionCommand("custom");
+        blueCustom.addActionListener(blueTimeMenu);
+
+        darkBlue20.setActionCommand("20:00");
+        darkBlue15.setActionCommand("15:00");
+        darkBlue10.setActionCommand("10:00");
+        darkBlueCustom.setActionCommand("custom");
+        darkBlueCustom.addActionListener(darkBlueTimeMenu);
+
+
         redTimes.setIcon(tomato);
         redTimes.add(red30);
         redTimes.add(red25);
@@ -214,6 +258,10 @@ public class PomodoroGUI {
         redTime.setText(String.valueOf(time));
     }
 
+    public void setRedTime(String time) {
+        redTime.setText(time);
+    }
+
     public void setBlueTime(LocalTime time) {
         blueTime.setText(String.valueOf(time));
     }
@@ -222,6 +270,20 @@ public class PomodoroGUI {
         darkBlueTime.setText(String.valueOf(time));
     }
 
+    private void setRedTimeWithFrame() {
+        CustomTime customTime = new CustomTime("Custom Time");
+        customTime.setLocationRelativeTo(frame);
+    }
+
+    private void setBlueTimeWithFrame() {
+        CustomTime customTime = new CustomTime("Custom Time");
+        customTime.setLocationRelativeTo(frame);
+    }
+
+    private void setDarkBlueTimeWithFrame() {
+        CustomTime customTime = new CustomTime("Custom Time");
+        customTime.setLocationRelativeTo(frame);
+    }
 
 
 }
