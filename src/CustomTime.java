@@ -1,30 +1,41 @@
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Date;
+import java.awt.event.WindowEvent;
+import java.text.ParseException;
+import java.util.Calendar;
 
 public class CustomTime extends JFrame {
+    private PomodoroTimeLabel timeLabel;
     private JFrame frame;
     private JPanel root;
     private JLabel minLabel, secLabel;
     private JSpinner minSpinner, secSpinner;
     private JButton confirm;
+    private int labelColor;
+    public static int RED = 0;
+    public static int BLUE = 1;
+    public static int DARKBLUE = 2;
 
-    public CustomTime(String title) {
+    public CustomTime(String title, PomodoroTimeLabel timeLabel, int labelColor) {
         super(title);
+        this.timeLabel = timeLabel;
+        this.labelColor = labelColor;
         frame = this;
         frame.setSize(300,150);
         frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.setResizable(false);
         root = new JPanel();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(1970,Calendar.JANUARY,1,0,20,0);
         minSpinner = new JSpinner(new SpinnerDateModel());
         minSpinner.setEditor(new JSpinner.DateEditor(minSpinner, "mm"));
-        minSpinner.setValue(new Date());
+        minSpinner.setValue(calendar.getTime());
         minSpinner.setSize(100, 25);
         minSpinner.setLocation(25, 40);
         secSpinner = new JSpinner(new SpinnerDateModel());
         secSpinner.setEditor(new JSpinner.DateEditor(secSpinner, "ss"));
-        secSpinner.setValue(new Date());
+        secSpinner.setValue(calendar.getTime());
         secSpinner.setSize(100, 25);
         secSpinner.setLocation(159, 40);
         minLabel = new JLabel();
@@ -67,7 +78,36 @@ public class CustomTime extends JFrame {
         frame.setVisible(true);
     }
 
-    private void confirm() {
-        System.out.println("confirmed");
+    private void confirm(){
+        String minutes;
+        try {
+            minSpinner.commitEdit();
+            secSpinner.commitEdit();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SpinnerDateModel model = (SpinnerDateModel) minSpinner.getModel();
+        Calendar time = Calendar.getInstance();
+        time.setTime(model.getDate());
+        minutes = String.valueOf(time.get(Calendar.MINUTE));
+        model = (SpinnerDateModel) secSpinner.getModel();
+        time.setTime(model.getDate());
+        timeLabel.setTime(minutes, zeroFill(time.get(Calendar.SECOND)));
+        closeFrame();
+    }
+
+    private String zeroFill(int val) {
+        if (val < 9) {
+            return "0" + val;
+        } else {
+            return String.valueOf(val);
+        }
+    }
+
+    private void closeFrame() {
+        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        frame.setVisible(false);
+        frame.dispose();
+        frame = null;
     }
 }

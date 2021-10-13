@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.time.*;
 import java.util.Objects;
 
 public class PomodoroGUI {
@@ -17,7 +16,7 @@ public class PomodoroGUI {
     private JRadioButtonMenuItem noSound, bell, digital;
     private JTabbedPane tabbedPane;
     private JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
-    private JLabel redTime, blueTime, darkBlueTime;
+    private PomodoroTimeLabel redTime, blueTime, darkBlueTime;
     private ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2, settings, settingsSave, settingsLoad, notification;
     private ButtonGroup notificationGroup;
     private ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu;
@@ -38,9 +37,9 @@ public class PomodoroGUI {
         redTimer = new JPanel();
         blueTimer = new JPanel();
         darkBlueTimer = new JPanel();
-        redTime = new JLabel();
-        blueTime = new JLabel();
-        darkBlueTime = new JLabel();
+        redTime = new PomodoroTimeLabel("29:71");
+        blueTime = new PomodoroTimeLabel("88:88");
+        darkBlueTime = new PomodoroTimeLabel("88:88");
         frameIcon = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/intelligenter-timer.png")));
         tomato = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/tomato.png")));
         coffeeCup = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup.png")));
@@ -83,21 +82,21 @@ public class PomodoroGUI {
         redTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "30:00", "25:00", "20:00", "15:00" -> setRedTime(str);
+                case "30:00", "25:00", "20:00", "15:00" -> redTime.setTime(str);
                 case "custom" -> setRedTimeWithFrame();
             }
         };
         blueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "15:00", "10:00", "05:00" -> setRedTime(str);
+                case "15:00", "10:00", "05:00" -> blueTime.setTime(str);
                 case "custom" -> setBlueTimeWithFrame();
             }
         };
         darkBlueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "20:00", "15:00", "10:00" -> setRedTime(str);
+                case "20:00", "15:00", "10:00" -> blueTime.setTime(str);
                 case "custom" -> setDarkBlueTimeWithFrame();
             }
         };
@@ -116,11 +115,6 @@ public class PomodoroGUI {
         rootRed.setBounds(tabbedPane.getBounds());
         rootRed.setSize(tabbedPane.getSize());
 
-        redTime.setForeground(Color.WHITE);
-        redTime.setFont(new Font("Gadugi", Font.PLAIN,130));
-        redTime.setText("29:71");
-        redTime.setBounds(20, 15, 320, 150);
-
         redTimer.setBackground(lightRed);
         redTimer.setBounds(71, 50, 350, 200);
         redTimer.setLayout(null);
@@ -133,11 +127,6 @@ public class PomodoroGUI {
         rootBlue.setBackground(blue);
         rootBlue.setBounds(tabbedPane.getBounds());
         rootBlue.setSize(tabbedPane.getSize());
-
-        blueTime.setForeground(Color.WHITE);
-        blueTime.setFont(new Font("Gadugi", Font.PLAIN,130));
-        blueTime.setText("88:88");
-        blueTime.setBounds(20, 15, 320, 150);
 
         blueTimer.setBackground(lightBlue);
         blueTimer.setBounds(71, 50, 350, 200);
@@ -152,11 +141,6 @@ public class PomodoroGUI {
         rootDarkBlue.setBounds(tabbedPane.getBounds());
         rootDarkBlue.setSize(tabbedPane.getSize());
 
-        darkBlueTime.setForeground(Color.WHITE);
-        darkBlueTime.setFont(new Font("Gadugi", Font.PLAIN,130));
-        darkBlueTime.setText("18:27");
-        darkBlueTime.setBounds(20, 15, 320, 150);
-
         darkBlueTimer.setBackground(lightDarkBlue);
         darkBlueTimer.setBounds(71, 50, 350, 200);
         darkBlueTimer.setLayout(null);
@@ -165,7 +149,7 @@ public class PomodoroGUI {
         rootDarkBlue.add(darkBlueTimer);
 
 
-
+        //tabbedPane-stuff
         tabbedPane.setBounds(frame.getBounds());
         tabbedPane.setSize(frame.getSize());
         tabbedPane.addTab("Pomodoro", tomato, rootRed);
@@ -254,36 +238,25 @@ public class PomodoroGUI {
         frame.setVisible(true);
     }
 
-    public void setRedTime(LocalTime time) {
-        redTime.setText(String.valueOf(time));
-    }
-
-    public void setRedTime(String time) {
-        redTime.setText(time);
-    }
-
-    public void setBlueTime(LocalTime time) {
-        blueTime.setText(String.valueOf(time));
-    }
-
-    public void setDarkBlueTime(LocalTime time) {
-        darkBlueTime.setText(String.valueOf(time));
-    }
-
     private void setRedTimeWithFrame() {
-        CustomTime customTime = new CustomTime("Custom Time");
+        stopAllTimers();
+        CustomTime customTime = new CustomTime("Custom Time",redTime, CustomTime.RED);
         customTime.setLocationRelativeTo(frame);
     }
 
     private void setBlueTimeWithFrame() {
-        CustomTime customTime = new CustomTime("Custom Time");
+        stopAllTimers();
+        CustomTime customTime = new CustomTime("Custom Time",blueTime, CustomTime.BLUE);
         customTime.setLocationRelativeTo(frame);
     }
 
     private void setDarkBlueTimeWithFrame() {
-        CustomTime customTime = new CustomTime("Custom Time");
+        stopAllTimers();
+        CustomTime customTime = new CustomTime("Custom Time",darkBlueTime, CustomTime.DARKBLUE);
         customTime.setLocationRelativeTo(frame);
     }
 
+    private void stopAllTimers() {
 
+    }
 }
