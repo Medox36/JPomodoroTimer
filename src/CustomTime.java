@@ -6,25 +6,21 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 public class CustomTime extends JFrame {
-    private PomodoroTimeLabel timeLabel;
-    private JFrame frame;
-    private JPanel root;
-    private JLabel minLabel, secLabel;
-    private JSpinner minSpinner, secSpinner;
-    private JButton confirm;
-    private int labelColor;
-    public static int RED = 0;
-    public static int BLUE = 1;
-    public static int DARKBLUE = 2;
+    private final PomodoroTimeLabel timeLabel;
+    private final JPanel root;
+    private final JLabel minLabel;
+    private final JLabel secLabel;
+    private final JSpinner minSpinner;
+    private final JSpinner secSpinner;
+    private final JButton confirm;
 
-    public CustomTime(String title, PomodoroTimeLabel timeLabel, int labelColor) {
+    public CustomTime(String title, PomodoroTimeLabel timeLabel, ImageIcon icon) {
         super(title);
         this.timeLabel = timeLabel;
-        this.labelColor = labelColor;
-        frame = this;
-        frame.setSize(300,150);
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        frame.setResizable(false);
+        this.setSize(300,150);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
+        this.setIconImage(icon.getImage());
         root = new JPanel();
         Calendar calendar = Calendar.getInstance();
         calendar.set(1970,Calendar.JANUARY,1,0,20,0);
@@ -51,9 +47,7 @@ public class CustomTime extends JFrame {
         confirm.addActionListener(e -> confirm());
         confirm.addKeyListener(new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
+            public void keyTyped(KeyEvent e) {}
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -61,9 +55,7 @@ public class CustomTime extends JFrame {
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
+            public void keyReleased(KeyEvent e) {}
         });
 
         root.setSize(this.getSize());
@@ -73,9 +65,9 @@ public class CustomTime extends JFrame {
         root.add(minSpinner);
         root.add(secSpinner);
         root.add(confirm);
-        frame.add(root);
-        frame.setAlwaysOnTop(true);
-        frame.setVisible(true);
+        this.add(root);
+        this.setAlwaysOnTop(true);
+        this.setVisible(true);
     }
 
     private void confirm(){
@@ -97,17 +89,15 @@ public class CustomTime extends JFrame {
     }
 
     private String zeroFill(int val) {
-        if (val < 9) {
+        if (val < 9)
             return "0" + val;
-        } else {
+        else
             return String.valueOf(val);
-        }
     }
 
     private void closeFrame() {
-        frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-        frame.setVisible(false);
-        frame.dispose();
-        frame = null;
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.setVisible(false);
+        this.dispose();
     }
 }

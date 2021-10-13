@@ -4,32 +4,30 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class PomodoroGUI {
-    private Color red, lightRed, blue, lightBlue, darkBlue, lightDarkBlue;
-    private JFrame frame;
-    private JMenuBar menuBar;
-    private JMenu settingsMenu, notifications, redTimes, blueTimes, darkBlueTimes;
-    private JMenuItem saveSettings, loadSettings;
-    private JMenuItem red30, red25, red20, red15, redCustom;
-    private JMenuItem blue15, blue10, blue5, blueCustom;
-    private JMenuItem darkBlue20, darkBlue15, darkBlue10, darkBlueCustom;
-    private JCheckBoxMenuItem autoBreaks, autoPomodoro;
-    private JRadioButtonMenuItem noSound, bell, digital;
-    private JTabbedPane tabbedPane;
-    private JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
-    private PomodoroTimeLabel redTime, blueTime, darkBlueTime;
-    private ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2, settings, settingsSave, settingsLoad, notification;
-    private ButtonGroup notificationGroup;
-    private ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu;
+    private final JFrame frame;
+    private final JMenuBar menuBar;
+    private final JMenu settingsMenu, notifications, redTimes, blueTimes, darkBlueTimes;
+    private final JMenuItem saveSettings, loadSettings;
+    private final JMenuItem red30, red25, red20, red15, redCustom;
+    private final JMenuItem blue15, blue10, blue5, blueCustom;
+    private final JMenuItem darkBlue20, darkBlue15, darkBlue10, darkBlueCustom;
+    private final JCheckBoxMenuItem autoBreaks, autoPomodoro;
+    private final JRadioButtonMenuItem noSound, bell, digital;
+    private final JTabbedPane tabbedPane;
+    private final JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
+    private final PomodoroTimeLabel redTime, blueTime, darkBlueTime;
+    private final ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2, settings, settingsSave, settingsLoad, notification;
+    private final ButtonGroup notificationGroup;
+    private final ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu;
 
     public PomodoroGUI() {
-        red = new Color(0xdb524d);
-        lightRed = new Color(0xdf645f);
-        blue = new Color(0x468e91);
-        lightBlue = new Color(0x599a9c);
-        darkBlue = new Color(0x437ea8);
-        lightDarkBlue = new Color(0x568bb1);
+        Color red = new Color(0xdb524d);
+        Color lightRed = new Color(0xdf645f);
+        Color blue = new Color(0x468e91);
+        Color lightBlue = new Color(0x599a9c);
+        Color darkBlue = new Color(0x437ea8);
+        Color lightDarkBlue = new Color(0x568bb1);
         frame = new JFrame();
-
         tabbedPane = new JTabbedPane();
         rootRed = new JPanel();
         rootBlue = new JPanel();
@@ -39,8 +37,8 @@ public class PomodoroGUI {
         darkBlueTimer = new JPanel();
         redTime = new PomodoroTimeLabel("29:71");
         blueTime = new PomodoroTimeLabel("88:88");
-        darkBlueTime = new PomodoroTimeLabel("88:88");
-        frameIcon = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/intelligenter-timer.png")));
+        darkBlueTime = new PomodoroTimeLabel("01:15");
+        frameIcon = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/intelligent-timer.png")));
         tomato = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/tomato.png")));
         coffeeCup = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup.png")));
         coffeeCup2 = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup2.png")));
@@ -104,7 +102,7 @@ public class PomodoroGUI {
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setSize(500,600);
+        frame.setSize(500, 600);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Pomodoro Timer");
         frame.setIconImage(frameIcon.getImage());
@@ -233,6 +231,7 @@ public class PomodoroGUI {
         menuBar.add(settingsMenu);
 
 
+        //finish frame
         frame.setJMenuBar(menuBar);
         frame.getContentPane().add(tabbedPane);
         frame.setVisible(true);
@@ -240,19 +239,19 @@ public class PomodoroGUI {
 
     private void setRedTimeWithFrame() {
         stopAllTimers();
-        CustomTime customTime = new CustomTime("Custom Time",redTime, CustomTime.RED);
+        CustomTime customTime = new CustomTime("Custom Time", redTime, tomato);
         customTime.setLocationRelativeTo(frame);
     }
 
     private void setBlueTimeWithFrame() {
         stopAllTimers();
-        CustomTime customTime = new CustomTime("Custom Time",blueTime, CustomTime.BLUE);
+        CustomTime customTime = new CustomTime("Custom Time", blueTime, coffeeCup);
         customTime.setLocationRelativeTo(frame);
     }
 
     private void setDarkBlueTimeWithFrame() {
         stopAllTimers();
-        CustomTime customTime = new CustomTime("Custom Time",darkBlueTime, CustomTime.DARKBLUE);
+        CustomTime customTime = new CustomTime("Custom Time", darkBlueTime, coffeeCup2);
         customTime.setLocationRelativeTo(frame);
     }
 
