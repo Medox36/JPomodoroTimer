@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -12,7 +10,7 @@ public class CustomTime extends JFrame {
     private final JLabel secLabel;
     private final JSpinner minSpinner;
     private final JSpinner secSpinner;
-    private final JButton confirm;
+    private final JButton confirm, cancel;
 
     public CustomTime(String title, PomodoroTimeLabel timeLabel, ImageIcon icon) {
         super(title);
@@ -40,23 +38,14 @@ public class CustomTime extends JFrame {
         secLabel = new JLabel();
         secLabel.setText("Seconds");
         secLabel.setBounds(159, 15, 100, 25);
-
         confirm = new JButton();
         confirm.setText("Confirm");
-        confirm.setBounds(100, 75, 90, 25);
+        confirm.setBounds(40, 75, 90, 25);
         confirm.addActionListener(e -> confirm());
-        confirm.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                confirm();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
+        cancel = new JButton();
+        cancel.setText("Cancel");
+        cancel.setBounds(160, 75, 90, 25);
+        cancel.addActionListener(e -> cancel());
 
         root.setSize(this.getSize());
         root.setLayout(null);
@@ -65,8 +54,10 @@ public class CustomTime extends JFrame {
         root.add(minSpinner);
         root.add(secSpinner);
         root.add(confirm);
+        root.add(cancel);
         this.add(root);
         this.setAlwaysOnTop(true);
+        this.getRootPane().setDefaultButton(confirm);
         this.setVisible(true);
     }
 
@@ -85,6 +76,12 @@ public class CustomTime extends JFrame {
         model = (SpinnerDateModel) secSpinner.getModel();
         time.setTime(model.getDate());
         timeLabel.setTime(minutes, zeroFill(time.get(Calendar.SECOND)));
+        closeFrame();
+    }
+
+    private void cancel() {
+        //TODO restart the timer which was active if one of the three timers was active
+        PomodoroGUI.resumeStoppedTimer();
         closeFrame();
     }
 

@@ -238,24 +238,28 @@ public class PomodoroGUI {
     }
 
     private void setRedTimeWithFrame() {
-        stopAllTimers();
+        stopActiveTimers();
         CustomTime customTime = new CustomTime("Custom Time", redTime, tomato);
         customTime.setLocationRelativeTo(frame);
     }
 
     private void setBlueTimeWithFrame() {
-        stopAllTimers();
+        stopActiveTimers();
         CustomTime customTime = new CustomTime("Custom Time", blueTime, coffeeCup);
         customTime.setLocationRelativeTo(frame);
     }
 
     private void setDarkBlueTimeWithFrame() {
-        stopAllTimers();
+        stopActiveTimers();
         CustomTime customTime = new CustomTime("Custom Time", darkBlueTime, coffeeCup2);
         customTime.setLocationRelativeTo(frame);
     }
 
-    private void stopAllTimers() {
+    private void stopActiveTimers() {
+
+    }
+
+    public static void resumeStoppedTimer() {
 
     }
 }
