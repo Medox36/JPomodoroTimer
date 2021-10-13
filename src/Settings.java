@@ -1,12 +1,8 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
-import java.util.Objects;
 
 public class Settings {
-    private File standardSettingsFile;
-    private File customFile;
+    private final File standardSettingsFile;
     private String redMin, redSec;
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
@@ -16,26 +12,68 @@ public class Settings {
 
     public Settings() {
         standardSettingsFile = new File(URI.create(String.valueOf(Settings.class.getResource("settings/settings.txt"))));
+        checkFiles();
+    }
+
+    private void checkFiles() {
+        try {
+            if (!new File("settings.txt").exists()) {
+                loadContentsFromStandardFile();
+            } else {
+                File file = new File("settings.txt");
+                loadContentsFromCustomFile(file);
+            }
+        } catch (Exception e) {
+            loadStandardValues();
+        }
+    }
+
+    private void loadContentsFromStandardFile() throws IOException {
+        loadFromFile(new FileReader(standardSettingsFile));
+    }
+
+    private void loadContentsFromCustomFile(File file) throws IOException {
+        loadFromFile(new FileReader(file));
+    }
+
+    private void loadFromFile(FileReader fr) throws IOException {
+        BufferedReader br = new BufferedReader(fr);
+        redMin = br.readLine();
+        redSec = br.readLine();
+        blueMin = br.readLine();
+        blueSec = br.readLine();
+        darkBlueMin = br.readLine();
+        darkBlueSec = br.readLine();
+        notifications = Boolean.parseBoolean(br.readLine());
+        autoPomodoros = Boolean.parseBoolean(br.readLine());
+        autoBreaks = Boolean.parseBoolean(br.readLine());
+    }
+
+    public void saveContentsToCustomFile(File file){
+        try {
+            saveToFile(new FileWriter(file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveToFile(FileWriter fw) throws IOException {
+        String l = System.lineSeparator();
+        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + notifications + l + autoPomodoros + l + autoBreaks;
+        fw.write(str);
+        fw.flush();
+        fw.close();
+    }
+
+    private void loadStandardValues() {
         redMin = "20";
-        redSec = "10";
-    }
-
-    private void loadContentsFromFile() {
-
-    }
-
-    private void loadContentsFromFile(File file) {
-
-    }
-
-    private void saveContentsToFile() throws IOException {
-        System.out.println(standardSettingsFile.isFile() + ", " + standardSettingsFile.getName());
-        FileWriter fw = new FileWriter(standardSettingsFile);
-        fw.write(redMin);
-        fw.write(redSec);
-    }
-
-    private void saveContentsToFile(File file) throws IOException {
-        FileWriter fw = new FileWriter(file);
+        redSec = "00";
+        blueMin = "05";
+        blueSec = "00";
+        darkBlueMin = "15";
+        darkBlueSec = "00";
+        notifications = false;
+        autoPomodoros = false;
+        autoBreaks = false;
     }
 }
