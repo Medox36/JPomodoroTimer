@@ -16,7 +16,6 @@ public class PomodoroMenu extends JMenuBar {
     private final ImageIcon settingsSave, settingsLoad, notification, settingsIcon;
     private final ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu;
 
-
     public PomodoroMenu(PomodoroGUI pomodoroGUI, ImageIcon tomato, ImageIcon coffeeCup, ImageIcon coffeeCup2) {
         this.pom = pomodoroGUI;
         settingsSave = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/setting.png")));
