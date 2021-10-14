@@ -81,21 +81,31 @@ public class PomodoroMenu extends JMenuBar {
         settingsMenu.setIconTextGap(8);
 
         red30.setActionCommand("30:00");
+        red30.addActionListener(redTimeMenu);
         red25.setActionCommand("25:00");
+        red25.addActionListener(redTimeMenu);
         red20.setActionCommand("20:00");
+        red20.addActionListener(redTimeMenu);
         red15.setActionCommand("15:00");
+        red15.addActionListener(redTimeMenu);
         redCustom.setActionCommand("custom");
         redCustom.addActionListener(redTimeMenu);
 
         blue15.setActionCommand("15:00");
+        blue15.addActionListener(blueTimeMenu);
         blue10.setActionCommand("10:00");
+        blue10.addActionListener(blueTimeMenu);
         blue5.setActionCommand("05:00");
+        blue5.addActionListener(blueTimeMenu);
         blueCustom.setActionCommand("custom");
         blueCustom.addActionListener(blueTimeMenu);
 
         darkBlue20.setActionCommand("20:00");
+        darkBlue20.addActionListener(darkBlueTimeMenu);
         darkBlue15.setActionCommand("15:00");
+        darkBlue15.addActionListener(darkBlueTimeMenu);
         darkBlue10.setActionCommand("10:00");
+        darkBlue10.addActionListener(darkBlueTimeMenu);
         darkBlueCustom.setActionCommand("custom");
         darkBlueCustom.addActionListener(darkBlueTimeMenu);
 
