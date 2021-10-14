@@ -20,8 +20,7 @@ public class CustomTime extends JFrame {
         this.setResizable(false);
         this.setIconImage(icon.getImage());
         root = new JPanel();
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(1970,Calendar.JANUARY,1,0,20,0);
+        Calendar calendar = timesInFrameByColor();
         minSpinner = new JSpinner(new SpinnerDateModel());
         minSpinner.setEditor(new JSpinner.DateEditor(minSpinner, "mm"));
         minSpinner.setValue(calendar.getTime());
@@ -59,6 +58,17 @@ public class CustomTime extends JFrame {
         this.setAlwaysOnTop(true);
         this.getRootPane().setDefaultButton(confirm);
         this.setVisible(true);
+    }
+
+    private Calendar timesInFrameByColor() {
+        Calendar calendar = Calendar.getInstance();
+        switch (timeLabel.getName()) {
+            case "red" -> calendar.set(1970,Calendar.JANUARY,1,0,25,0);
+            case "blue" -> calendar.set(1970,Calendar.JANUARY,1,0,5,0);
+            case "darkblue" -> calendar.set(1970,Calendar.JANUARY,1,0,15,0);
+            default -> calendar.set(1970,Calendar.JANUARY,1,0,20,0);
+        }
+        return calendar;
     }
 
     private void confirm(){

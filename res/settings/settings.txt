@@ -1,9 +1,9 @@
-20
+25
 00
 05
 00
 15
 00
-false
+off
 false
 false

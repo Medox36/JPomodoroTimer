@@ -4,11 +4,12 @@ import java.time.LocalTime;
 
 public class PomodoroTimeLabel extends JLabel {
 
-    public PomodoroTimeLabel(String initTime) {
+    public PomodoroTimeLabel(String initTime, String name) {
         this.setForeground(Color.WHITE);
         this.setFont(new Font("Gadugi", Font.PLAIN,130));
-        this.setText(initTime);
+        this.setTime(initTime);
         this.setBounds(20, 15, 320, 150);
+        this.setName(name);
     }
 
     public void setTime(LocalTime time) {

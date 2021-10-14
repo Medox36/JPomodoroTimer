@@ -6,9 +6,9 @@ public class Settings {
     private String redMin, redSec;
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
-    private boolean notifications;
-    private boolean autoPomodoros;
+    private String notifications;
     private boolean autoBreaks;
+    private boolean autoPomodoros;
 
     public Settings() {
         standardSettingsFile = new File(URI.create(String.valueOf(Settings.class.getResource("settings/settings.txt"))));
@@ -50,9 +50,9 @@ public class Settings {
         blueSec = br.readLine();
         darkBlueMin = br.readLine();
         darkBlueSec = br.readLine();
-        notifications = Boolean.parseBoolean(br.readLine());
-        autoPomodoros = Boolean.parseBoolean(br.readLine());
+        notifications = br.readLine();
         autoBreaks = Boolean.parseBoolean(br.readLine());
+        autoPomodoros = Boolean.parseBoolean(br.readLine());
     }
 
     public void saveContentsToCustomFile(File file){
@@ -65,21 +65,45 @@ public class Settings {
 
     private void saveToFile(FileWriter fw) throws IOException {
         String l = System.lineSeparator();
-        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + notifications + l + autoPomodoros + l + autoBreaks;
+        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + notifications + l + autoBreaks + l + autoPomodoros;
         fw.write(str);
         fw.flush();
         fw.close();
     }
 
     private void loadStandardValues() {
-        redMin = "20";
+        redMin = "25";
         redSec = "00";
         blueMin = "05";
         blueSec = "00";
         darkBlueMin = "15";
         darkBlueSec = "00";
-        notifications = false;
-        autoPomodoros = false;
+        notifications = "off";
         autoBreaks = false;
+        autoPomodoros = false;
+    }
+
+    public String getRedTime() {
+        return redMin + ":" + redSec;
+    }
+
+    public String getBlueTime() {
+        return blueMin + ":" + blueSec;
+    }
+
+    public String getDarkBlueTime() {
+        return darkBlueMin + ":" + darkBlueSec;
+    }
+
+    public boolean isAutoBreaks() {
+        return autoBreaks;
+    }
+
+    public boolean isAutoPomodoros() {
+        return autoPomodoros;
+    }
+
+    public String getNotifications() {
+        return notifications;
     }
 }
