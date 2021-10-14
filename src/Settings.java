@@ -44,13 +44,48 @@ public class Settings {
 
     private void loadFromFile(FileReader fr) throws IOException {
         BufferedReader br = new BufferedReader(fr);
-        redMin = br.readLine();
-        redSec = br.readLine();
-        blueMin = br.readLine();
-        blueSec = br.readLine();
-        darkBlueMin = br.readLine();
-        darkBlueSec = br.readLine();
-        notifications = br.readLine();
+        String str = br.readLine();
+        if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
+            redMin = str;
+        } else {
+            redMin = "25";
+        }
+        str = br.readLine();
+        if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
+            redSec = str;
+        } else {
+            redSec = "00";
+        }
+        str = br.readLine();
+        if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
+            blueMin = str;
+        } else {
+            blueMin = "05";
+        }
+        str = br.readLine();
+        if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
+            blueSec = str;
+        } else {
+            blueSec = "00";
+        }
+        str = br.readLine();
+        if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
+            darkBlueMin = str;
+        } else {
+            darkBlueMin = "15";
+        }
+        str = br.readLine();
+        if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
+            darkBlueSec = str;
+        } else {
+            darkBlueSec = "00";
+        }
+        str = br.readLine();
+        if (str.equals("off") || str.equals("bell") | str.equals("digital")) {
+            notifications = str;
+        } else {
+            notifications = "off";
+        }
         autoBreaks = Boolean.parseBoolean(br.readLine());
         autoPomodoros = Boolean.parseBoolean(br.readLine());
     }
