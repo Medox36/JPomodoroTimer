@@ -6,7 +6,6 @@ public class Main {
     }
 
     public void run() {
-        Settings settings = new Settings();
         PomodoroGUI pomodoroGUI = new PomodoroGUI();
     }
 }
