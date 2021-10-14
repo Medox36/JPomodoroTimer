@@ -52,6 +52,7 @@ public class PomodoroMenu extends JMenuBar {
         notificationListener = e -> {
             System.out.println(e.getSource());
             System.out.println("\t" + e.getActionCommand());
+            //TODO evaluate the Event
         };
         redTimeMenu = e -> {
             String str = e.getActionCommand();
