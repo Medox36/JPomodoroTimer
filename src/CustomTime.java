@@ -72,7 +72,6 @@ public class CustomTime extends JFrame {
     }
 
     private void confirm(){
-        String minutes;
         try {
             minSpinner.commitEdit();
             secSpinner.commitEdit();
@@ -82,11 +81,17 @@ public class CustomTime extends JFrame {
         SpinnerDateModel model = (SpinnerDateModel) minSpinner.getModel();
         Calendar time = Calendar.getInstance();
         time.setTime(model.getDate());
-        minutes = String.valueOf(time.get(Calendar.MINUTE));
+        int minutes = time.get(Calendar.MINUTE);
         model = (SpinnerDateModel) secSpinner.getModel();
         time.setTime(model.getDate());
-        timeLabel.setTime(minutes, zeroFill(time.get(Calendar.SECOND)));
-        closeFrame();
+        int seconds = time.get(Calendar.SECOND);
+        if (minutes == 0 && seconds == 0) {
+            String message = "Combination of "+ minutes + " minutes and " + seconds + " seconds is not Possible!\nTimer will be finished instantly.\nAt least 1 second is required.";
+            JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            timeLabel.setTime(zeroFill(minutes), zeroFill(seconds));
+            closeFrame();
+        }
     }
 
     private void cancel() {
