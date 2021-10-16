@@ -9,6 +9,7 @@ public class PomodoroGUI extends Settings{
     private final JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
     private final PomodoroTimeLabel redTime, blueTime, darkBlueTime;
     private final ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2;
+    private final StartStopButton redButton, blueButton, darkBlueButton;
 
     public PomodoroGUI() {
         super();
@@ -28,6 +29,9 @@ public class PomodoroGUI extends Settings{
         coffeeCup = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup.png")));
         coffeeCup2 = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup2.png")));
         menuBar = new PomodoroMenu(this, tomato, coffeeCup, coffeeCup2);
+        redButton = new StartStopButton();
+        blueButton = new StartStopButton();
+        darkBlueButton = new StartStopButton();
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -48,6 +52,7 @@ public class PomodoroGUI extends Settings{
 
         redTimer.add(redTime, BorderLayout.CENTER);
         rootRed.add(redTimer);
+        rootRed.add(redButton);
 
         //blue parts
         rootBlue.setLayout(null);
@@ -61,6 +66,7 @@ public class PomodoroGUI extends Settings{
 
         blueTimer.add(blueTime);
         rootBlue.add(blueTimer);
+        rootBlue.add(blueButton);
 
         //darkBlue parts
         rootDarkBlue.setLayout(null);
@@ -74,6 +80,7 @@ public class PomodoroGUI extends Settings{
 
         darkBlueTimer.add(darkBlueTime);
         rootDarkBlue.add(darkBlueTimer);
+        rootDarkBlue.add(darkBlueButton);
 
         //tabbedPane-stuff
         tabbedPane.setBounds(frame.getBounds());

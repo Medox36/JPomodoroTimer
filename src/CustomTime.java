@@ -40,10 +40,12 @@ public class CustomTime extends JFrame {
         confirm = new JButton();
         confirm.setText("Confirm");
         confirm.setBounds(40, 75, 90, 25);
+        confirm.setFocusPainted(false);
         confirm.addActionListener(e -> confirm());
         cancel = new JButton();
         cancel.setText("Cancel");
         cancel.setBounds(160, 75, 90, 25);
+        confirm.setFocusPainted(false);
         cancel.addActionListener(e -> cancel());
 
         root.setSize(this.getSize());

@@ -17,6 +17,8 @@ public class PomodoroSound {
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(Objects.requireNonNull(PomodoroSound.class.getResource("sounds/digital_clock_alarm.wav")));
             clip.open(audio);
+            FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            volume.setValue(-22.0f);
             clip.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
