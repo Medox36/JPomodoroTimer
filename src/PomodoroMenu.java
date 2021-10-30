@@ -58,6 +58,7 @@ public class PomodoroMenu extends JMenuBar {
             switch (str) {
                 case "30:00", "25:00", "20:00", "15:00" -> pom.getRedTimeLabel().setTime(str);
                 case "custom" -> pom.setRedTimeWithFrame();
+                default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
         blueTimeMenu = e -> {
@@ -73,6 +74,7 @@ public class PomodoroMenu extends JMenuBar {
             switch (str) {
                 case "20:00", "15:00", "10:00" -> pom.getDarkBlueTimeLabel().setTime(str);
                 case "custom" -> pom.setDarkBlueTimeWithFrame();
+                default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
 

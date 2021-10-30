@@ -10,6 +10,7 @@ public class PomodoroGUI extends Settings{
     private final PomodoroTimeLabel redTime, blueTime, darkBlueTime;
     private final ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2;
     private final StartStopButton redButton, blueButton, darkBlueButton;
+    private final TimerManagement timerManagement;
 
     public PomodoroGUI() {
         super();
@@ -29,6 +30,7 @@ public class PomodoroGUI extends Settings{
         coffeeCup = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup.png")));
         coffeeCup2 = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup2.png")));
         menuBar = new PomodoroMenu(this, tomato, coffeeCup, coffeeCup2);
+        timerManagement = new TimerManagement(redTime, blueTime, darkBlueTime);
         redButton = new StartStopButton();
         blueButton = new StartStopButton();
         darkBlueButton = new StartStopButton();
@@ -102,29 +104,29 @@ public class PomodoroGUI extends Settings{
     }
 
     public void setRedTimeWithFrame() {
-        stopActiveTimers();
-        CustomTime customTime = new CustomTime("Custom Time", redTime, tomato);
+        stopActiveTimer();
+        CustomTime customTime = new CustomTime("Custom Time", redTime, tomato, this);
         customTime.setLocationRelativeTo(frame);
     }
 
     public void setBlueTimeWithFrame() {
-        stopActiveTimers();
-        CustomTime customTime = new CustomTime("Custom Time", blueTime, coffeeCup);
+        stopActiveTimer();
+        CustomTime customTime = new CustomTime("Custom Time", blueTime, coffeeCup, this);
         customTime.setLocationRelativeTo(frame);
     }
 
     public void setDarkBlueTimeWithFrame() {
-        stopActiveTimers();
-        CustomTime customTime = new CustomTime("Custom Time", darkBlueTime, coffeeCup2);
+        stopActiveTimer();
+        CustomTime customTime = new CustomTime("Custom Time", darkBlueTime, coffeeCup2, this);
         customTime.setLocationRelativeTo(frame);
     }
 
-    private void stopActiveTimers() {
-
+    private void stopActiveTimer() {
+        timerManagement.stopActiveTimer();
     }
 
-    public static void resumeStoppedTimer() {
-
+    public void resumeStoppedTimer() {
+        timerManagement.resumeActiveTimer();
     }
 
     public PomodoroTimeLabel getRedTimeLabel() {

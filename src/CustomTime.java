@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
-import java.util.Calendar;
 
 public class CustomTime extends JFrame {
     private final PomodoroTimeLabel timeLabel;
@@ -11,24 +10,24 @@ public class CustomTime extends JFrame {
     private final JSpinner minSpinner;
     private final JSpinner secSpinner;
     private final JButton confirm, cancel;
+    private final PomodoroGUI gui;
 
-    public CustomTime(String title, PomodoroTimeLabel timeLabel, ImageIcon icon) {
+    public CustomTime(String title, PomodoroTimeLabel timeLabel, ImageIcon icon, PomodoroGUI gui) {
         super(title);
         this.timeLabel = timeLabel;
         this.setSize(300,150);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
         this.setIconImage(icon.getImage());
+        this.gui = gui;
         root = new JPanel();
-        Calendar calendar = timesInFrameByColor();
-        minSpinner = new JSpinner(new SpinnerDateModel());
-        minSpinner.setEditor(new JSpinner.DateEditor(minSpinner, "mm"));
-        minSpinner.setValue(calendar.getTime());
+
+        minSpinner = new JSpinner(new SpinnerNumberModel(20, 0, 90, 1));
+        minSpinner.setEditor(new JSpinner.NumberEditor(minSpinner, "##"));
         minSpinner.setSize(100, 25);
         minSpinner.setLocation(25, 40);
-        secSpinner = new JSpinner(new SpinnerDateModel());
-        secSpinner.setEditor(new JSpinner.DateEditor(secSpinner, "ss"));
-        secSpinner.setValue(calendar.getTime());
+        secSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 59, 1));
+        secSpinner.setEditor(new JSpinner.NumberEditor(secSpinner, "##"));
         secSpinner.setSize(100, 25);
         secSpinner.setLocation(159, 40);
         minLabel = new JLabel();
@@ -62,17 +61,6 @@ public class CustomTime extends JFrame {
         this.setVisible(true);
     }
 
-    private Calendar timesInFrameByColor() {
-        Calendar calendar = Calendar.getInstance();
-        switch (timeLabel.getName()) {
-            case "red" -> calendar.set(1970,Calendar.JANUARY,1,0,25,0);
-            case "blue" -> calendar.set(1970,Calendar.JANUARY,1,0,5,0);
-            case "darkblue" -> calendar.set(1970,Calendar.JANUARY,1,0,15,0);
-            default -> calendar.set(1970,Calendar.JANUARY,1,0,20,0);
-        }
-        return calendar;
-    }
-
     private void confirm(){
         try {
             minSpinner.commitEdit();
@@ -80,33 +68,21 @@ public class CustomTime extends JFrame {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        SpinnerDateModel model = (SpinnerDateModel) minSpinner.getModel();
-        Calendar time = Calendar.getInstance();
-        time.setTime(model.getDate());
-        int minutes = time.get(Calendar.MINUTE);
-        model = (SpinnerDateModel) secSpinner.getModel();
-        time.setTime(model.getDate());
-        int seconds = time.get(Calendar.SECOND);
+        int minutes = (int) minSpinner.getValue();
+        int seconds = (int) secSpinner.getValue();
         if (minutes == 0 && seconds == 0) {
             String message = "Combination of "+ minutes + " minutes and " + seconds + " seconds is not Possible!\nTimer will be finished instantly.\nAt least 1 second is required.";
             JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
-            timeLabel.setTime(zeroFill(minutes), zeroFill(seconds));
+            timeLabel.setTime(String.valueOf(minutes), String.valueOf(seconds));
             closeFrame();
         }
     }
 
     private void cancel() {
         //TODO restart the timer which was active if one of the three timers was active
-        PomodoroGUI.resumeStoppedTimer();
+        gui.resumeStoppedTimer();
         closeFrame();
-    }
-
-    private String zeroFill(int val) {
-        if (val < 9)
-            return "0" + val;
-        else
-            return String.valueOf(val);
     }
 
     private void closeFrame() {
