@@ -15,7 +15,7 @@ public class PomodoroTimeLabel extends JLabel {
     }
 
     public void setTime(LocalTime time) {
-        this.setText(time.getMinute() + ":" + time.getSecond());
+        this.setText(zeroFill(String.valueOf(time.getMinute())) + ":" + zeroFill(String.valueOf(time.getSecond())));
         min = String.valueOf(time.getMinute());
         sec = String.valueOf(time.getSecond());
     }

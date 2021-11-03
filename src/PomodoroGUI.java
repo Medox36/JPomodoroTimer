@@ -11,6 +11,7 @@ public class PomodoroGUI extends Settings{
     private final ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2;
     private final StartStopButton redButton, blueButton, darkBlueButton;
     private final TimerManagement timerManagement;
+    private TrayIcon trayIcon;
 
     public PomodoroGUI() {
         super();
@@ -34,6 +35,16 @@ public class PomodoroGUI extends Settings{
         redButton = new StartStopButton();
         blueButton = new StartStopButton();
         darkBlueButton = new StartStopButton();
+        if (SystemTray.isSupported()) {
+            SystemTray tray = SystemTray.getSystemTray();
+            trayIcon = new TrayIcon(frameIcon.getImage(), "Pomodoro Timer");
+            trayIcon.setImageAutoSize(true);
+            try {
+                tray.add(trayIcon);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            }
+        }
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);

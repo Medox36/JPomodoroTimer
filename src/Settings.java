@@ -81,7 +81,7 @@ public class Settings {
             darkBlueSec = "00";
         }
         str = br.readLine();
-        if (str.equals("off") || str.equals("bell") | str.equals("digital")) {
+        if (str.equals("off") || str.equals("bell") || str.equals("digital")) {
             notifications = str;
         } else {
             notifications = "off";

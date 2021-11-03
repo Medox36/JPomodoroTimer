@@ -38,7 +38,7 @@ public class PomodoroTimer implements Runnable {
         int h;
         int min;
         int sec;
-        if (Integer.parseInt(fetchTimerMin())>= 60) {
+        if (Integer.parseInt(fetchTimerMin()) >= 60) {
             h = 1;
             min = Integer.parseInt(fetchTimerMin()) - 60;
         } else {

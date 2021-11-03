@@ -174,6 +174,7 @@ public class PomodoroMenu extends JMenuBar {
             case "off" -> off.setSelected(true);
             case "bell" -> bell.setSelected(true);
             case "digital" -> digital.setSelected(true);
+            default -> throw new IllegalStateException("Unexpected value: " + pom.getNotifications());
         }
     }
 
