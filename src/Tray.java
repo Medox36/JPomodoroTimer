@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class Tray extends TrayIcon {
@@ -30,5 +31,6 @@ public class Tray extends TrayIcon {
 
     private void runWithoutTray() {
         pomodoroGUI.setVisible(true);
+        pomodoroGUI.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

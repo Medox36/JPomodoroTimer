@@ -95,7 +95,6 @@ public class PomodoroGUI extends JFrame{
         //finish frame
         this.setJMenuBar(menuBar);
         this.getContentPane().add(tabbedPane);
-
     }
 
     public void setRedTimeWithFrame() {

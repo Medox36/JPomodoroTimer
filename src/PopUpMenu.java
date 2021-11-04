@@ -29,15 +29,19 @@ public class PopUpMenu extends PopupMenu {
                 } else {
                     pomodoroGUI.setVisible(true);
                 }
-                pomodoroGUI.getBar().getMenu(0).setVisible(true);
-                pomodoroGUI.getBar().getMenu(0).setSelected(true);
+                pomodoroGUI.getBar().getMenu(0).doClick();
             } else if (exit.equals(e.getSource())) {
                 //TODO save settings and close
                 pomodoroGUI.dispatchEvent(new WindowEvent(pomodoroGUI, WindowEvent.WINDOW_CLOSING));
                 pomodoroGUI.setVisible(false);
                 pomodoroGUI.dispose();
                 TrayIcon[] trayIcons = SystemTray.getSystemTray().getTrayIcons();
-                SystemTray.getSystemTray().remove(trayIcons[0]);
+                for (TrayIcon trayIcon : trayIcons) {
+                    if (trayIcon.equals(Start.getTrayIcon())) {
+                        SystemTray.getSystemTray().remove(trayIcon);
+                        break;
+                    }
+                }
             }
         };
         open.addActionListener(actionListener);

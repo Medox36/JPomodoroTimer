@@ -1,6 +1,14 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class PomodoroMenuBar extends JMenuBar {
     private final Settings settings;
@@ -13,13 +21,11 @@ public class PomodoroMenuBar extends JMenuBar {
     private final JCheckBoxMenuItem autoBreaks, autoPomodoro;
     private final JRadioButtonMenuItem off, bell, digital;
     private final ButtonGroup notificationGroup;
-    private final Images images;
-    private final ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu;
+    private final ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu, saveSettingsListener, loadSettingsListener;
 
     public PomodoroMenuBar(PomodoroGUI pomodoroGUI, Settings settings, Images images) {
         this.pomodoroGUI = pomodoroGUI;
         this.settings = settings;
-        this.images = images;
         settingsMenu = new JMenu();
         notifications = new JMenu("Notifications");
         redTimes = new JMenu("Pomodoro Time");
@@ -54,25 +60,59 @@ public class PomodoroMenuBar extends JMenuBar {
         redTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "30:00", "25:00", "20:00", "15:00" -> pomodoroGUI.getRedTimeLabel().setTime(str);
-                case "custom" -> pomodoroGUI.setRedTimeWithFrame();
+                case "30:00", "25:00", "20:00", "15:00" -> this.pomodoroGUI.getRedTimeLabel().setTime(str);
+                case "custom" -> this.pomodoroGUI.setRedTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
         blueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "15:00", "10:00", "05:00" -> pomodoroGUI.getBlueTimeLabel().setTime(str);
-                case "custom" -> pomodoroGUI.setBlueTimeWithFrame();
+                case "15:00", "10:00", "05:00" -> this.pomodoroGUI.getBlueTimeLabel().setTime(str);
+                case "custom" -> this.pomodoroGUI.setBlueTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
         darkBlueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "20:00", "15:00", "10:00" -> pomodoroGUI.getDarkBlueTimeLabel().setTime(str);
-                case "custom" -> pomodoroGUI.setDarkBlueTimeWithFrame();
+                case "20:00", "15:00", "10:00" -> this.pomodoroGUI.getDarkBlueTimeLabel().setTime(str);
+                case "custom" -> this.pomodoroGUI.setDarkBlueTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
+            }
+        };
+        saveSettingsListener = e -> {
+
+        };
+        loadSettingsListener = e -> {
+            URI uri = null;
+            try {
+                uri = new URI(PomodoroMenuBar.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+            JFileChooser fileChooser = new JFileChooser(Objects.requireNonNull(uri).toString());
+
+            System.out.println();
+            System.out.println(PomodoroMenuBar.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            Objects.requireNonNull(fileChooser).setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    return (f.getName().endsWith(".txt") || f.isDirectory());
+                }
+
+                @Override
+                public String getDescription() {
+                    return null;
+                }
+            });
+            Action details = fileChooser.getActionMap().get("viewTypeDetails");
+            details.actionPerformed(null);
+            int val = fileChooser.showOpenDialog(this.pomodoroGUI);
+            if (val == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
             }
         };
 
@@ -143,6 +183,9 @@ public class PomodoroMenuBar extends JMenuBar {
         notifications.add(off);
         notifications.add(bell);
         notifications.add(digital);
+
+        saveSettings.addActionListener(saveSettingsListener);
+        loadSettings.addActionListener(loadSettingsListener);
 
         settingsMenu.add(autoBreaks);
         settingsMenu.add(autoPomodoro);

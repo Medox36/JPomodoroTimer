@@ -1,12 +1,10 @@
 public class Main {
 
     public static void main(String[] args) {
-        Main main = new Main();
-        main.run();
+        new Main().run();
     }
 
     public void run() {
         new Start();
-
     }
 }
