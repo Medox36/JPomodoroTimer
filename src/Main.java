@@ -6,8 +6,7 @@ public class Main {
     }
 
     public void run() {
-        PomodoroGUI pomodoroGUI = new PomodoroGUI();
-        PomodoroSound pomodoroSound = new PomodoroSound();
-        //pomodoroSound.playDigitalAlarm();
+        new Start();
+
     }
 }

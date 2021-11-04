@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Objects;
 
-public class PomodoroMenu extends JMenuBar {
-    private final PomodoroGUI pom;
+public class PomodoroMenuBar extends JMenuBar {
+    private final Settings settings;
+    private final PomodoroGUI pomodoroGUI;
     private final JMenu settingsMenu, notifications, redTimes, blueTimes, darkBlueTimes;
     private final JMenuItem saveSettings, loadSettings;
     private final JMenuItem red30, red25, red20, red15, redCustom;
@@ -13,22 +13,20 @@ public class PomodoroMenu extends JMenuBar {
     private final JCheckBoxMenuItem autoBreaks, autoPomodoro;
     private final JRadioButtonMenuItem off, bell, digital;
     private final ButtonGroup notificationGroup;
-    private final ImageIcon settingsSave, settingsLoad, notification, settingsIcon;
+    private final Images images;
     private final ActionListener notificationListener, redTimeMenu, blueTimeMenu, darkBlueTimeMenu;
 
-    public PomodoroMenu(PomodoroGUI pomodoroGUI, ImageIcon tomato, ImageIcon coffeeCup, ImageIcon coffeeCup2) {
-        this.pom = pomodoroGUI;
-        settingsSave = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/setting.png")));
-        settingsLoad = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/open-file.png")));
-        notification = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/notification.png")));
-        settingsIcon = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/setting-lines.png")));
+    public PomodoroMenuBar(PomodoroGUI pomodoroGUI, Settings settings, Images images) {
+        this.pomodoroGUI = pomodoroGUI;
+        this.settings = settings;
+        this.images = images;
         settingsMenu = new JMenu();
         notifications = new JMenu("Notifications");
         redTimes = new JMenu("Pomodoro Time");
         blueTimes = new JMenu("Short Break Time");
         darkBlueTimes = new JMenu("Long Break Time");
-        saveSettings = new JMenuItem("Save Settings", settingsSave);
-        loadSettings = new JMenuItem("Load Settings", settingsLoad);
+        saveSettings = new JMenuItem("Save Settings", images.settingsSave);
+        loadSettings = new JMenuItem("Load Settings", images.settingsLoad);
         off = new JRadioButtonMenuItem("off");
         bell = new JRadioButtonMenuItem("Bell");
         digital = new JRadioButtonMenuItem("Digital");
@@ -56,30 +54,30 @@ public class PomodoroMenu extends JMenuBar {
         redTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "30:00", "25:00", "20:00", "15:00" -> pom.getRedTimeLabel().setTime(str);
-                case "custom" -> pom.setRedTimeWithFrame();
+                case "30:00", "25:00", "20:00", "15:00" -> pomodoroGUI.getRedTimeLabel().setTime(str);
+                case "custom" -> pomodoroGUI.setRedTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
         blueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "15:00", "10:00", "05:00" -> pom.getBlueTimeLabel().setTime(str);
-                case "custom" -> pom.setBlueTimeWithFrame();
+                case "15:00", "10:00", "05:00" -> pomodoroGUI.getBlueTimeLabel().setTime(str);
+                case "custom" -> pomodoroGUI.setBlueTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
         darkBlueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "20:00", "15:00", "10:00" -> pom.getDarkBlueTimeLabel().setTime(str);
-                case "custom" -> pom.setDarkBlueTimeWithFrame();
+                case "20:00", "15:00", "10:00" -> pomodoroGUI.getDarkBlueTimeLabel().setTime(str);
+                case "custom" -> pomodoroGUI.setDarkBlueTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
 
         settingsMenu.setText("Settings");
-        settingsMenu.setIcon(settingsIcon);
+        settingsMenu.setIcon(images.settingsIcon);
         settingsMenu.setIconTextGap(8);
 
         red30.setActionCommand("30:00");
@@ -111,20 +109,20 @@ public class PomodoroMenu extends JMenuBar {
         darkBlueCustom.setActionCommand("custom");
         darkBlueCustom.addActionListener(darkBlueTimeMenu);
 
-        redTimes.setIcon(tomato);
+        redTimes.setIcon(images.tomato);
         redTimes.add(red30);
         redTimes.add(red25);
         redTimes.add(red20);
         redTimes.add(red15);
         redTimes.add(redCustom);
 
-        blueTimes.setIcon(coffeeCup);
+        blueTimes.setIcon(images.coffeeCup);
         blueTimes.add(blue15);
         blueTimes.add(blue10);
         blueTimes.add(blue5);
         blueTimes.add(blueCustom);
 
-        darkBlueTimes.setIcon(coffeeCup2);
+        darkBlueTimes.setIcon(images.coffeeCup2);
         darkBlueTimes.add(darkBlue20);
         darkBlueTimes.add(darkBlue15);
         darkBlueTimes.add(darkBlue10);
@@ -137,7 +135,7 @@ public class PomodoroMenu extends JMenuBar {
         digital.addActionListener(notificationListener);
         digital.setActionCommand("digital");
 
-        notifications.setIcon(notification);
+        notifications.setIcon(images.notification);
         notificationGroup = new ButtonGroup();
         notificationGroup.add(off);
         notificationGroup.add(bell);
@@ -159,8 +157,8 @@ public class PomodoroMenu extends JMenuBar {
         settingsMenu.add(loadSettings);
 
         //checking Checkboxes if needed
-        autoBreaks.setSelected(pomodoroGUI.isAutoBreaks());
-        autoPomodoro.setSelected(pomodoroGUI.isAutoPomodoros());
+        autoBreaks.setSelected(settings.isAutoBreaks());
+        autoPomodoro.setSelected(settings.isAutoPomodoros());
 
         //select the right radiobutton
         selectRadioButton();
@@ -170,11 +168,11 @@ public class PomodoroMenu extends JMenuBar {
     }
 
     private void selectRadioButton() {
-        switch (pom.getNotifications()) {
+        switch (settings.getNotifications()) {
             case "off" -> off.setSelected(true);
             case "bell" -> bell.setSelected(true);
             case "digital" -> digital.setSelected(true);
-            default -> throw new IllegalStateException("Unexpected value: " + pom.getNotifications());
+            default -> throw new IllegalStateException("Unexpected value: " + settings.getNotifications());
         }
     }
 

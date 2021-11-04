@@ -1,21 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Objects;
 
-public class PomodoroGUI extends Settings{
-    private final JFrame frame;
-    private final PomodoroMenu menuBar;
+public class PomodoroGUI extends JFrame{
+    private final PomodoroMenuBar menuBar;
     private final JTabbedPane tabbedPane;
     private final JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
     private final PomodoroTimeLabel redTime, blueTime, darkBlueTime;
-    private final ImageIcon frameIcon, tomato, coffeeCup, coffeeCup2;
+    private final Images images;
+    private final Settings settings;
     private final StartStopButton redButton, blueButton, darkBlueButton;
     private final TimerManagement timerManagement;
-    private TrayIcon trayIcon;
 
-    public PomodoroGUI() {
-        super();
-        frame = new JFrame();
+    public PomodoroGUI(Images images, Settings settings) {
+        this.images = images;
+        this.settings = settings;
+
         tabbedPane = new JTabbedPane();
         rootRed = new JPanel();
         rootBlue = new JPanel();
@@ -23,35 +22,21 @@ public class PomodoroGUI extends Settings{
         redTimer = new JPanel();
         blueTimer = new JPanel();
         darkBlueTimer = new JPanel();
-        redTime = new PomodoroTimeLabel(getRedTime(), "red");
-        blueTime = new PomodoroTimeLabel(getBlueTime(), "blue");
-        darkBlueTime = new PomodoroTimeLabel(getDarkBlueTime(), "darkblue");
-        frameIcon = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/intelligent-timer.png")));
-        tomato = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/tomato.png")));
-        coffeeCup = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup.png")));
-        coffeeCup2 = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/coffee-cup2.png")));
-        menuBar = new PomodoroMenu(this, tomato, coffeeCup, coffeeCup2);
+        redTime = new PomodoroTimeLabel(settings.getRedTime(), "red");
+        blueTime = new PomodoroTimeLabel(settings.getBlueTime(), "blue");
+        darkBlueTime = new PomodoroTimeLabel(settings.getDarkBlueTime(), "darkblue");
+        menuBar = new PomodoroMenuBar(this, settings, images);
         timerManagement = new TimerManagement(redTime, blueTime, darkBlueTime);
         redButton = new StartStopButton();
         blueButton = new StartStopButton();
         darkBlueButton = new StartStopButton();
-        if (SystemTray.isSupported()) {
-            SystemTray tray = SystemTray.getSystemTray();
-            trayIcon = new TrayIcon(frameIcon.getImage(), "Pomodoro Timer");
-            trayIcon.setImageAutoSize(true);
-            try {
-                tray.add(trayIcon);
-            } catch (AWTException e) {
-                e.printStackTrace();
-            }
-        }
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setSize(500, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setTitle("Pomodoro Timer");
-        frame.setIconImage(frameIcon.getImage());
+        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        this.setResizable(false);
+        this.setSize(500, 600);
+        this.setLocationRelativeTo(null);
+        this.setTitle("Pomodoro Timer");
+        this.setIconImage(images.frameIcon.getImage());
 
         //red parts
         rootRed.setLayout(null);
@@ -96,11 +81,11 @@ public class PomodoroGUI extends Settings{
         rootDarkBlue.add(darkBlueButton);
 
         //tabbedPane-stuff
-        tabbedPane.setBounds(frame.getBounds());
-        tabbedPane.setSize(frame.getSize());
-        tabbedPane.addTab("Pomodoro", tomato, rootRed);
-        tabbedPane.addTab("Short Break", coffeeCup, rootBlue);
-        tabbedPane.addTab("Long Break", coffeeCup2, rootDarkBlue);
+        tabbedPane.setBounds(this.getBounds());
+        tabbedPane.setSize(this.getSize());
+        tabbedPane.addTab("Pomodoro", images.tomato, rootRed);
+        tabbedPane.addTab("Short Break", images.coffeeCup, rootBlue);
+        tabbedPane.addTab("Long Break", images.coffeeCup2, rootDarkBlue);
         tabbedPane.addChangeListener(e -> {
             JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
             int selectedIndex = tabbedPane.getSelectedIndex();
@@ -108,28 +93,27 @@ public class PomodoroGUI extends Settings{
         });
 
         //finish frame
-        frame.setJMenuBar(menuBar);
-        frame.getContentPane().add(tabbedPane);
-        frame.setVisible(true);
+        this.setJMenuBar(menuBar);
+        this.getContentPane().add(tabbedPane);
 
     }
 
     public void setRedTimeWithFrame() {
         stopActiveTimer();
-        CustomTime customTime = new CustomTime("Custom Time", redTime, tomato, this);
-        customTime.setLocationRelativeTo(frame);
+        CustomTime customTime = new CustomTime("Custom Time", redTime, images.tomato, this);
+        customTime.setLocationRelativeTo(this);
     }
 
     public void setBlueTimeWithFrame() {
         stopActiveTimer();
-        CustomTime customTime = new CustomTime("Custom Time", blueTime, coffeeCup, this);
-        customTime.setLocationRelativeTo(frame);
+        CustomTime customTime = new CustomTime("Custom Time", blueTime, images.coffeeCup, this);
+        customTime.setLocationRelativeTo(this);
     }
 
     public void setDarkBlueTimeWithFrame() {
         stopActiveTimer();
-        CustomTime customTime = new CustomTime("Custom Time", darkBlueTime, coffeeCup2, this);
-        customTime.setLocationRelativeTo(frame);
+        CustomTime customTime = new CustomTime("Custom Time", darkBlueTime, images.coffeeCup2, this);
+        customTime.setLocationRelativeTo(this);
     }
 
     private void stopActiveTimer() {
@@ -150,5 +134,9 @@ public class PomodoroGUI extends Settings{
 
     public PomodoroTimeLabel getDarkBlueTimeLabel() {
         return darkBlueTime;
+    }
+
+    public PomodoroMenuBar getBar() {
+        return menuBar;
     }
 }
