@@ -1,8 +1,10 @@
 import java.io.*;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Objects;
 
 public class Settings {
-    private final File standardSettingsFile;
+    private File standardSettingsFile;
     private String redMin, redSec;
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
@@ -11,7 +13,12 @@ public class Settings {
     private boolean autoPomodoros;
 
     public Settings() {
-        standardSettingsFile = new File(URI.create(String.valueOf(Settings.class.getResource("settings/settings.txt"))));
+        System.out.println(Settings.class.getResource("settings/settings.txt"));
+        try {
+            standardSettingsFile = new File(Objects.requireNonNull(Settings.class.getResource("settings/settings.txt")).toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         checkFiles();
     }
 

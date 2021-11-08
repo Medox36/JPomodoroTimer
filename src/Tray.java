@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Tray extends TrayIcon {
-    private SystemTray systemTray;
     private Images images;
     private Settings settings;
     private PomodoroGUI pomodoroGUI;
@@ -18,9 +17,8 @@ public class Tray extends TrayIcon {
 
     private void addIfSupported() {
         if (SystemTray.isSupported()) {
-            systemTray = SystemTray.getSystemTray();
             try {
-                systemTray.add(this);
+                SystemTray.getSystemTray().add(this);
             } catch (AWTException e) {
                 e.printStackTrace();
             }

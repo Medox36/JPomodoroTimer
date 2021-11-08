@@ -5,6 +5,6 @@ public class Main {
     }
 
     public void run() {
-        new Start();
+        new Start().initialize();
     }
 }

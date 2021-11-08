@@ -6,7 +6,7 @@ public class Start {
     private PomodoroGUI pomodoroGUI;
 
     public Start() {
-        initialize();
+
     }
 
     public void initialize() {
