@@ -22,6 +22,8 @@ public class PomodoroTimeLabel extends JLabel {
 
     public void setTime(String time) {
         this.setText(time);
+        min = String.valueOf(time.charAt(0)) + time.charAt(1);
+        sec = String.valueOf(time.charAt(3)) + time.charAt(4);
     }
 
     public void setTime(String minutes, String seconds) {

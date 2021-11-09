@@ -12,10 +12,10 @@ public class Tray extends TrayIcon {
         this.settings = settings;
         this.pomodoroGUI = pomodoroGUI;
         this.setImageAutoSize(true);
-        addIfSupported();
+        addIfTrayIsSupported();
     }
 
-    private void addIfSupported() {
+    private void addIfTrayIsSupported() {
         if (SystemTray.isSupported()) {
             try {
                 SystemTray.getSystemTray().add(this);
