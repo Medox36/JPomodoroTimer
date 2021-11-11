@@ -89,7 +89,7 @@ public class PomodoroGUI extends JFrame{
         tabbedPane.addChangeListener(e -> {
             JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
             int selectedIndex = tabbedPane.getSelectedIndex();
-            System.out.println(selectedIndex);
+            //System.out.println(selectedIndex);
         });
 
         //finish frame
@@ -121,6 +121,10 @@ public class PomodoroGUI extends JFrame{
 
     public void resumeStoppedTimer() {
         timerManagement.resumeActiveTimer();
+    }
+
+    public void updateSettings() {
+
     }
 
     public PomodoroTimeLabel getRedTimeLabel() {

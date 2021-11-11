@@ -1,10 +1,7 @@
 import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Objects;
 
 public class Settings {
-    private File standardSettingsFile;
+    private InputStream in;
     private String redMin, redSec;
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
@@ -13,10 +10,9 @@ public class Settings {
     private boolean autoPomodoros;
 
     public Settings() {
-        System.out.println(Settings.class.getResource("settings/settings.txt"));
         try {
-            standardSettingsFile = new File(Objects.requireNonNull(Settings.class.getResource("settings/settings.txt")).toURI());
-        } catch (URISyntaxException e) {
+            in = getClass().getResourceAsStream("settings/settings.txt");
+        } catch (Exception e) {
             e.printStackTrace();
         }
         checkFiles();
@@ -42,67 +38,62 @@ public class Settings {
     }
 
     private void loadContentsFromStandardFile() throws IOException {
-        loadFromFile(new FileReader(standardSettingsFile));
+        loadFromFile(new BufferedReader(new InputStreamReader(in)));
     }
 
-    private void loadContentsFromCustomFile(File file) throws IOException {
-        loadFromFile(new FileReader(file));
+    protected void loadContentsFromCustomFile(File file) throws IOException {
+        loadFromFile(new BufferedReader(new FileReader(file)));
     }
 
-    private void loadFromFile(FileReader fr) throws IOException {
-        BufferedReader br = new BufferedReader(fr);
-        String str = br.readLine();
+    private void loadFromFile(BufferedReader fr) throws IOException {
+        String str = fr.readLine();
         if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
             redMin = str;
         } else {
             redMin = "25";
         }
-        str = br.readLine();
+        str = fr.readLine();
         if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
             redSec = str;
         } else {
             redSec = "00";
         }
-        str = br.readLine();
+        str = fr.readLine();
         if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
             blueMin = str;
         } else {
             blueMin = "05";
         }
-        str = br.readLine();
+        str = fr.readLine();
         if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
             blueSec = str;
         } else {
             blueSec = "00";
         }
-        str = br.readLine();
+        str = fr.readLine();
         if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
             darkBlueMin = str;
         } else {
             darkBlueMin = "15";
         }
-        str = br.readLine();
+        str = fr.readLine();
         if (Integer.parseInt(str) > -1 && Integer.parseInt(str) < 100) {
             darkBlueSec = str;
         } else {
             darkBlueSec = "00";
         }
-        str = br.readLine();
+        str = fr.readLine();
         if (str.equals("off") || str.equals("bell") || str.equals("digital")) {
             notifications = str;
         } else {
             notifications = "off";
         }
-        autoBreaks = Boolean.parseBoolean(br.readLine());
-        autoPomodoros = Boolean.parseBoolean(br.readLine());
+        autoBreaks = Boolean.parseBoolean(fr.readLine());
+        autoPomodoros = Boolean.parseBoolean(fr.readLine());
     }
 
-    public void saveContentsToCustomFile(File file){
-        try {
-            saveToFile(new FileWriter(file));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void saveContentsToCustomFile(File file) throws IOException {
+        saveToFile(new FileWriter(file));
     }
 
     private void saveToFile(FileWriter fw) throws IOException {

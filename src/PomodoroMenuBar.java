@@ -3,6 +3,7 @@ import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Objects;
@@ -79,21 +80,21 @@ public class PomodoroMenuBar extends JMenuBar {
             }
         };
         saveSettingsListener = e -> {
-
-        };
-        loadSettingsListener = e -> {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
+                ex.printStackTrace();
+            }
             URI uri = null;
             try {
                 uri = new URI(PomodoroMenuBar.class.getProtectionDomain().getCodeSource().getLocation().getPath());
             } catch (URISyntaxException ex) {
                 ex.printStackTrace();
             }
-            JFileChooser fileChooser = new JFileChooser(Objects.requireNonNull(uri).toString());
-
-            System.out.println();
-            System.out.println(PomodoroMenuBar.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-            Objects.requireNonNull(fileChooser).setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            JFileChooser fileChooser = new JFileChooser(Objects.requireNonNull(uri).getPath());
+            fileChooser.setSelectedFile(new File("settings.txt"));
+            fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.setFileHidingEnabled(true);
             fileChooser.setFileFilter(new FileFilter() {
                 @Override
                 public boolean accept(File f) {
@@ -102,14 +103,57 @@ public class PomodoroMenuBar extends JMenuBar {
 
                 @Override
                 public String getDescription() {
-                    return null;
+                    return "Textfiles (*.txt)";
+                }
+            });
+            Action details = fileChooser.getActionMap().get("viewTypeDetails");
+            details.actionPerformed(null);
+            int val = fileChooser.showSaveDialog(this.pomodoroGUI);
+            if (val == JFileChooser.APPROVE_OPTION) {
+                try {
+                    settings.saveContentsToCustomFile(fileChooser.getSelectedFile());
+                    //TODO show a Dialog
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+        loadSettingsListener = e -> {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException ex) {
+                ex.printStackTrace();
+            }
+            URI uri = null;
+            try {
+                uri = new URI(PomodoroMenuBar.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+            JFileChooser fileChooser = new JFileChooser(Objects.requireNonNull(uri).getPath());
+            fileChooser.setMultiSelectionEnabled(false);
+            fileChooser.setFileHidingEnabled(true);
+            fileChooser.setFileFilter(new FileFilter() {
+                @Override
+                public boolean accept(File f) {
+                    return (f.getName().endsWith(".txt") || f.isDirectory());
+                }
+
+                @Override
+                public String getDescription() {
+                    return "Textfiles (*.txt)";
                 }
             });
             Action details = fileChooser.getActionMap().get("viewTypeDetails");
             details.actionPerformed(null);
             int val = fileChooser.showOpenDialog(this.pomodoroGUI);
             if (val == JFileChooser.APPROVE_OPTION) {
-                File file = fileChooser.getSelectedFile();
+                try {
+                    settings.loadContentsFromCustomFile(fileChooser.getSelectedFile());
+                    pomodoroGUI.updateSettings();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         };
 
@@ -196,6 +240,9 @@ public class PomodoroMenuBar extends JMenuBar {
         settingsMenu.add(saveSettings);
         settingsMenu.add(loadSettings);
 
+        settingsMenu.setOpaque(true);
+        settingsMenu.setBackground(new Color(218, 206, 206));
+
         //checking Checkboxes if needed
         autoBreaks.setSelected(settings.isAutoBreaks());
         autoPomodoro.setSelected(settings.isAutoPomodoros());
@@ -203,7 +250,8 @@ public class PomodoroMenuBar extends JMenuBar {
         //select the right radiobutton
         selectRadioButton();
 
-        this.setBackground(new Color(0xE0E0E0));
+        this.setOpaque(true);
+        this.setBackground(new Color(0xD3D3D3));
         this.add(settingsMenu);
     }
 

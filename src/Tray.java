@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.desktop.SystemSleepEvent;
 
 public class Tray extends TrayIcon {
     private Images images;
@@ -19,6 +20,7 @@ public class Tray extends TrayIcon {
         if (SystemTray.isSupported()) {
             try {
                 SystemTray.getSystemTray().add(this);
+                showTrayMessage();
             } catch (AWTException e) {
                 e.printStackTrace();
             }
@@ -30,5 +32,9 @@ public class Tray extends TrayIcon {
     private void runWithoutTray() {
         pomodoroGUI.setVisible(true);
         pomodoroGUI.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public void showTrayMessage() {
+        displayMessage("Pomodoro Timer", "The Pomodora-Application is now running!", MessageType.INFO);
     }
 }
