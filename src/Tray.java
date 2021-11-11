@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.desktop.SystemSleepEvent;
 
 public class Tray extends TrayIcon {
     private Images images;
