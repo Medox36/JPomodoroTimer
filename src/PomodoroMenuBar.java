@@ -42,7 +42,6 @@ public class PomodoroMenuBar extends JMenuBar {
         JCheckBoxMenuItem autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
         JCheckBoxMenuItem autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
 
-        //TODO evaluate the Event
         ActionListener notificationListener = e -> {
             System.out.println(e.getSource());
             System.out.println("\t" + e.getActionCommand());
@@ -72,7 +71,6 @@ public class PomodoroMenuBar extends JMenuBar {
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
-        //TODO show a Dialog
         ActionListener saveSettingsListener = e -> {
             try {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
