@@ -80,7 +80,6 @@ public class CustomTime extends JFrame {
     }
 
     private void cancel() {
-        //TODO restart the timer which was active if one of the three timers was active
         gui.resumeStoppedTimer();
         closeFrame();
     }

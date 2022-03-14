@@ -1,51 +1,50 @@
+import javax.swing.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class PomodoroTimer implements Runnable {
+public class PomodoroTimer {
     private DateTimeFormatter timeFormatter;
     private PomodoroTimeLabel label;
+    private StartStopButton button;
     private LocalTime time;
+    private Timer timer;
     private boolean isActive;
 
     public PomodoroTimer(PomodoroTimeLabel label) {
         timeFormatter = DateTimeFormatter.ofPattern("mm:ss");
         this.label = label;
-        time = LocalTime.of(0,0,0);
+        time = LocalTime.of(0, Integer.parseInt(label.getMin()), Integer.parseInt(label.getSec()));
         time.format(timeFormatter);
+        timer = new Timer(1000, e -> decreaseTimer());
         isActive = false;
     }
 
     public void startTimer() {
         isActive = true;
+        timer.start();
+        button.setText("Stop");
     }
 
     public void haltTimer() {
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        timer.stop();
         isActive = false;
+        button.setText("Start");
     }
 
     private void decreaseTimer() {
         updateTime();
-        time = time.minusSeconds(1); //time.minus(1, ChronoUnit.SECONDS);
+        time = time.minusSeconds(1);
         updateLabel();
     }
 
     private void updateTime() {
-        int h;
-        int min;
-        int sec;
-        if (Integer.parseInt(fetchTimerMin()) >= 60) {
+        int h = 0;
+        int min = Integer.parseInt(label.getMin());
+        int sec = Integer.parseInt(label.getSec());
+        if (min >= 60) {
             h = 1;
-            min = Integer.parseInt(fetchTimerMin()) - 60;
-        } else {
-            h = 0;
-            min = Integer.parseInt(fetchTimerMin());
+            min -= 60;
         }
-        sec = Integer.parseInt(fetchTimerSec());
         time = LocalTime.of(h, min, sec);
     }
 
@@ -53,24 +52,11 @@ public class PomodoroTimer implements Runnable {
         label.setTime(time);
     }
 
-    private String fetchTimerMin() {
-        return label.getMin();
-    }
-
-    private String fetchTimerSec() {
-        return label.getSec();
-    }
-
     public boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    @Override
-    public void run() {
-
+    public void setButton(StartStopButton button) {
+        this.button = button;
     }
 }

@@ -2,25 +2,35 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StartStopButton extends JButton {
-    private boolean state;
+    private PomodoroTimer pomodoroTimer;
+    private TimerManagement tm;
 
-    public StartStopButton() {
+    public StartStopButton(TimerManagement tm, PomodoroTimer pomodoroTimer) {
         super("Start");
         this.setBounds(145, 310,200,75);
         this.setFont(new Font("Gadugi",Font.PLAIN,50));
         this.setFocusPainted(false);
         this.setMultiClickThreshhold(500);
+        this.tm = tm;
+        this.pomodoroTimer = pomodoroTimer;
+        this.pomodoroTimer.setButton(this);
         this.addActionListener(e -> {
-            if (state) {
-                this.setText("Start");
-                state = false;
-                //TODO stop the timer
+            if (pomodoroTimer.isActive()) {
+                setStop();
             } else {
-                this.setText("Stop");
-                state = true;
-                //TODO start the timer
+                setRunning();
             }
         });
-        state = false;
+    }
+
+    private void setStop() {
+        pomodoroTimer.haltTimer();
+        setText("Start");
+    }
+
+    private void setRunning() {
+        tm.stopActiveTimer();
+        pomodoroTimer.startTimer();
+        setText("Stop");
     }
 }

@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Tray extends TrayIcon {
     private Images images;
@@ -12,6 +14,14 @@ public class Tray extends TrayIcon {
         this.settings = settings;
         this.pomodoroGUI = pomodoroGUI;
         this.setImageAutoSize(true);
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() > 1) {
+                    pomodoroGUI.setVisible(true);
+                }
+            }
+        });
         addIfTrayIsSupported();
     }
 
@@ -34,6 +44,6 @@ public class Tray extends TrayIcon {
     }
 
     public void showTrayMessage() {
-        displayMessage("Pomodoro Timer", "The Pomodora-Application is now running!", MessageType.INFO);
+        displayMessage("Pomodoro Timer", "The Pomodoro-Application is now running!", MessageType.INFO);
     }
 }

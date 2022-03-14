@@ -1,84 +1,48 @@
 public class TimerManagement {
-    private PomodoroTimer redTimer, blueTimer, darkBlueTimer;
-    private Thread rT, bT, dbT;
+    private final PomodoroTimer redTimer, blueTimer, darkBlueTimer;
     private int wasActive;
 
     public TimerManagement(PomodoroTimeLabel redLabel, PomodoroTimeLabel blueLabel, PomodoroTimeLabel darkblueLabel) {
         redTimer = new PomodoroTimer(redLabel);
         blueTimer = new PomodoroTimer(blueLabel);
         darkBlueTimer = new PomodoroTimer(darkblueLabel);
-        rT = new Thread(redTimer);
-        rT.start();
-        bT = new Thread(blueTimer);
-        bT.start();
-        dbT = new Thread(darkBlueTimer);
-        dbT.start();
-    }
-
-    public void resumeRedTimer() {
-        rT.notify();
-        redTimer.setActive(true);
-    }
-
-    public void resumeBlueTimer() {
-        bT.notify();
-        blueTimer.setActive(true);
-    }
-
-    public void resumeDarkBlueTimer() {
-        dbT.notify();
-        darkBlueTimer.setActive(true);
-    }
-
-    public void haltRedTime() {
-        try {
-            rT.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        redTimer.setActive(false);
-    }
-
-    public void haltBlueTime() {
-        try {
-            bT.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        blueTimer.setActive(false);
-    }
-
-    public void  haltDarkBlueTime() {
-        try {
-            dbT.wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        darkBlueTimer.setActive(false);
     }
 
     public void stopActiveTimer() {
         if (redTimer.isActive()) {
-            haltRedTime();
+            redTimer.haltTimer();
             wasActive = 1;
-        }
-        if (blueTimer.isActive()) {
-            haltBlueTime();
+        } else if (blueTimer.isActive()) {
+            blueTimer.haltTimer();
             wasActive = 2;
-        }
-        if (darkBlueTimer.isActive()) {
-            haltDarkBlueTime();
+        } else if (darkBlueTimer.isActive()) {
+            darkBlueTimer.haltTimer();
             wasActive = 3;
+        } else {
+            wasActive = 0;
         }
     }
 
     public void resumeActiveTimer() {
         switch (wasActive) {
-            case 1 -> resumeRedTimer();
-            case 2 -> resumeBlueTimer();
-            case 3 -> resumeDarkBlueTimer();
+            case 0 -> {}
+            case 1 -> redTimer.startTimer();
+            case 2 -> blueTimer.startTimer();
+            case 3 -> darkBlueTimer.startTimer();
             default -> throw new IllegalStateException("Unexpected value: " + wasActive);
         }
         wasActive = 0;
+    }
+
+    public PomodoroTimer getRedTimer() {
+        return redTimer;
+    }
+
+    public PomodoroTimer getBlueTimer() {
+        return blueTimer;
+    }
+
+    public PomodoroTimer getDarkBlueTimer() {
+        return darkBlueTimer;
     }
 }
