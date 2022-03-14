@@ -4,12 +4,7 @@ import java.text.ParseException;
 
 public class CustomTime extends JFrame {
     private final PomodoroTimeLabel timeLabel;
-    private final JPanel root;
-    private final JLabel minLabel;
-    private final JLabel secLabel;
-    private final JSpinner minSpinner;
-    private final JSpinner secSpinner;
-    private final JButton confirm, cancel;
+    private final JSpinner minSpinner, secSpinner;
     private final PomodoroGUI gui;
 
     public CustomTime(String title, PomodoroTimeLabel timeLabel, ImageIcon icon, PomodoroGUI gui) {
@@ -20,7 +15,7 @@ public class CustomTime extends JFrame {
         this.setResizable(false);
         this.setIconImage(icon.getImage());
         this.gui = gui;
-        root = new JPanel();
+        JPanel root = new JPanel();
 
         minSpinner = new JSpinner(new SpinnerNumberModel(20, 0, 90, 1));
         minSpinner.setEditor(new JSpinner.NumberEditor(minSpinner, "##"));
@@ -30,18 +25,18 @@ public class CustomTime extends JFrame {
         secSpinner.setEditor(new JSpinner.NumberEditor(secSpinner, "##"));
         secSpinner.setSize(100, 25);
         secSpinner.setLocation(159, 40);
-        minLabel = new JLabel();
+        JLabel minLabel = new JLabel();
         minLabel.setText("Minutes");
         minLabel.setBounds(25, 15, 100, 25);
-        secLabel = new JLabel();
+        JLabel secLabel = new JLabel();
         secLabel.setText("Seconds");
         secLabel.setBounds(159, 15, 100, 25);
-        confirm = new JButton();
+        JButton confirm = new JButton();
         confirm.setText("Confirm");
         confirm.setBounds(40, 75, 90, 25);
         confirm.setFocusPainted(false);
         confirm.addActionListener(e -> confirm());
-        cancel = new JButton();
+        JButton cancel = new JButton();
         cancel.setText("Cancel");
         cancel.setBounds(160, 75, 90, 25);
         confirm.setFocusPainted(false);

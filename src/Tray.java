@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 public class Tray extends TrayIcon {
     private Images images;
     private Settings settings;
-    private PomodoroGUI pomodoroGUI;
+    private final PomodoroGUI pomodoroGUI;
 
     public Tray(Images images, Settings settings, PopUpMenu popUpMenu, PomodoroGUI pomodoroGUI) {
         super(images.frameIcon.getImage(), "Pomodoro Timer", popUpMenu);

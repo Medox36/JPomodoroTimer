@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class StartStopButton extends JButton {
-    private PomodoroTimer pomodoroTimer;
-    private TimerManagement tm;
+    private final PomodoroTimer pomodoroTimer;
+    private final TimerManagement tm;
 
     public StartStopButton(TimerManagement tm, PomodoroTimer pomodoroTimer) {
         super("Start");

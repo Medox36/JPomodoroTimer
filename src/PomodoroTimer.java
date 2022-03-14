@@ -3,15 +3,14 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class PomodoroTimer {
-    private DateTimeFormatter timeFormatter;
-    private PomodoroTimeLabel label;
+    private final PomodoroTimeLabel label;
     private StartStopButton button;
     private LocalTime time;
-    private Timer timer;
+    private final Timer timer;
     private boolean isActive;
 
     public PomodoroTimer(PomodoroTimeLabel label) {
-        timeFormatter = DateTimeFormatter.ofPattern("mm:ss");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("mm:ss");
         this.label = label;
         time = LocalTime.of(0, Integer.parseInt(label.getMin()), Integer.parseInt(label.getSec()));
         time.format(timeFormatter);
