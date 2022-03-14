@@ -33,7 +33,7 @@ public class PomodoroTimeLabel extends JLabel {
     }
 
     private String zeroFill(String val) {
-        if (Integer.parseInt(val) < 9)
+        if (Integer.parseInt(val) < 10)
             return "0" + val;
         else
             return val;
