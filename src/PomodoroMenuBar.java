@@ -13,9 +13,9 @@ public class PomodoroMenuBar extends JMenuBar {
     private final PomodoroGUI pomodoroGUI;
     private final JRadioButtonMenuItem off, bell, digital;
 
-    public PomodoroMenuBar(PomodoroGUI pomodoroGUI, Settings settings, Images images) {
+    public PomodoroMenuBar(PomodoroGUI pomodoroGUI, Images images) {
         this.pomodoroGUI = pomodoroGUI;
-        this.settings = settings;
+        settings = Settings.getInstance();
         JMenu settingsMenu = new JMenu();
         JMenu notifications = new JMenu("Notifications");
         JMenu redTimes = new JMenu("Pomodoro Time");

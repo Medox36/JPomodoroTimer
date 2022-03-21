@@ -8,10 +8,10 @@ public class Tray extends TrayIcon {
     private Settings settings;
     private final PomodoroGUI pomodoroGUI;
 
-    public Tray(Images images, Settings settings, PopUpMenu popUpMenu, PomodoroGUI pomodoroGUI) {
+    public Tray(Images images, PopUpMenu popUpMenu, PomodoroGUI pomodoroGUI) {
         super(images.frameIcon.getImage(), "Pomodoro Timer", popUpMenu);
         this.images = images;
-        this.settings = settings;
+        settings = Settings.getInstance();
         this.pomodoroGUI = pomodoroGUI;
         setImageAutoSize(true);
         addMouseListener(new MouseAdapter() {

@@ -1,6 +1,8 @@
 import java.io.*;
 
 public class Settings {
+    private static Settings INSTANCE;
+
     private String redMin, redSec;
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
@@ -129,5 +131,12 @@ public class Settings {
 
     public String getNotifications() {
         return notifications;
+    }
+
+    public static Settings getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Settings();
+        }
+        return INSTANCE;
     }
 }

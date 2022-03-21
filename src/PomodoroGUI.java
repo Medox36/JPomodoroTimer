@@ -8,14 +8,14 @@ public class PomodoroGUI extends JFrame{
     private final Settings settings;
     private final TimerManagement timerManagement;
 
-    public PomodoroGUI(Images images, Settings settings) {
+    public PomodoroGUI(Images images) {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         this.images = images;
-        this.settings = settings;
+        settings = Settings.getInstance();
 
         JTabbedPane tabbedPane1 = new JTabbedPane();
         JPanel rootRed = new JPanel();
@@ -27,7 +27,7 @@ public class PomodoroGUI extends JFrame{
         redTime = new PomodoroTimeLabel(settings.getRedTime(), "red");
         blueTime = new PomodoroTimeLabel(settings.getBlueTime(), "blue");
         darkBlueTime = new PomodoroTimeLabel(settings.getDarkBlueTime(), "darkblue");
-        menuBar = new PomodoroMenuBar(this, settings, images);
+        menuBar = new PomodoroMenuBar(this, images);
         timerManagement = new TimerManagement(redTime, blueTime, darkBlueTime);
         StartStopButton redButton = new StartStopButton(timerManagement, timerManagement.getRedTimer());
         StartStopButton blueButton = new StartStopButton(timerManagement, timerManagement.getBlueTimer());

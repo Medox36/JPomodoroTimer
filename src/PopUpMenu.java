@@ -7,12 +7,12 @@ import java.util.Objects;
 public class PopUpMenu extends PopupMenu {
     private final MenuItem open, setting, exit;
 
-    public PopUpMenu(Settings settings, PomodoroGUI pomodoroGUI) {
+    public PopUpMenu(PomodoroGUI pomodoroGUI) {
         super();
         open = new MenuItem("open");
         setting = new MenuItem("settings");
         CheckboxMenuItem notifications = new CheckboxMenuItem("turn off notifications");
-        notifications.setState(Objects.equals(settings.getNotifications(), "off"));
+        notifications.setState(Objects.equals(Settings.getInstance().getNotifications(), "off"));
         exit = new MenuItem("exit");
         ActionListener actionListener = e -> {
             if (e.getSource().equals(open)) {
