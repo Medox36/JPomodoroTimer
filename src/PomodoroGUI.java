@@ -133,6 +133,7 @@ public class PomodoroGUI extends JFrame{
     }
 
     public void reloadSettings() {
+        stopActiveTimer();
         redTime.setTime(settings.getRedTime());
         blueTime.setTime(settings.getBlueTime());
         darkBlueTime.setTime(settings.getDarkBlueTime());
