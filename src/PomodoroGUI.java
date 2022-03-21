@@ -3,12 +3,9 @@ import java.awt.*;
 
 public class PomodoroGUI extends JFrame{
     private final PomodoroMenuBar menuBar;
-    private final JTabbedPane tabbedPane;
-    private final JPanel rootRed, rootBlue, rootDarkBlue, redTimer, blueTimer, darkBlueTimer;
     private final PomodoroTimeLabel redTime, blueTime, darkBlueTime;
     private final Images images;
     private final Settings settings;
-    private final StartStopButton redButton, blueButton, darkBlueButton;
     private final TimerManagement timerManagement;
 
     public PomodoroGUI(Images images, Settings settings) {
@@ -20,34 +17,34 @@ public class PomodoroGUI extends JFrame{
         this.images = images;
         this.settings = settings;
 
-        tabbedPane = new JTabbedPane();
-        rootRed = new JPanel();
-        rootBlue = new JPanel();
-        rootDarkBlue = new JPanel();
-        redTimer = new JPanel();
-        blueTimer = new JPanel();
-        darkBlueTimer = new JPanel();
+        JTabbedPane tabbedPane1 = new JTabbedPane();
+        JPanel rootRed = new JPanel();
+        JPanel rootBlue = new JPanel();
+        JPanel rootDarkBlue = new JPanel();
+        JPanel redTimer = new JPanel();
+        JPanel blueTimer = new JPanel();
+        JPanel darkBlueTimer = new JPanel();
         redTime = new PomodoroTimeLabel(settings.getRedTime(), "red");
         blueTime = new PomodoroTimeLabel(settings.getBlueTime(), "blue");
         darkBlueTime = new PomodoroTimeLabel(settings.getDarkBlueTime(), "darkblue");
         menuBar = new PomodoroMenuBar(this, settings, images);
         timerManagement = new TimerManagement(redTime, blueTime, darkBlueTime);
-        redButton = new StartStopButton(timerManagement, timerManagement.getRedTimer());
-        blueButton = new StartStopButton(timerManagement, timerManagement.getBlueTimer());
-        darkBlueButton = new StartStopButton(timerManagement, timerManagement.getDarkBlueTimer());
+        StartStopButton redButton = new StartStopButton(timerManagement, timerManagement.getRedTimer());
+        StartStopButton blueButton = new StartStopButton(timerManagement, timerManagement.getBlueTimer());
+        StartStopButton darkBlueButton = new StartStopButton(timerManagement, timerManagement.getDarkBlueTimer());
 
-        this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-        this.setResizable(false);
-        this.setSize(500, 600);
-        this.setLocationRelativeTo(null);
-        this.setTitle("Pomodoro Timer");
-        this.setIconImage(images.frameIcon.getImage());
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setResizable(false);
+        setSize(500, 600);
+        setLocationRelativeTo(null);
+        setTitle("Pomodoro Timer");
+        setIconImage(images.frameIcon.getImage());
 
         //red parts
         rootRed.setLayout(null);
         rootRed.setBackground(new Color(0xdb524d));
-        rootRed.setBounds(tabbedPane.getBounds());
-        rootRed.setSize(tabbedPane.getSize());
+        rootRed.setBounds(tabbedPane1.getBounds());
+        rootRed.setSize(tabbedPane1.getSize());
 
         redTimer.setBackground(new Color(0xdf645f));
         redTimer.setBounds(71, 50, 350, 200);
@@ -60,8 +57,8 @@ public class PomodoroGUI extends JFrame{
         //blue parts
         rootBlue.setLayout(null);
         rootBlue.setBackground(new Color(0x468e91));
-        rootBlue.setBounds(tabbedPane.getBounds());
-        rootBlue.setSize(tabbedPane.getSize());
+        rootBlue.setBounds(tabbedPane1.getBounds());
+        rootBlue.setSize(tabbedPane1.getSize());
 
         blueTimer.setBackground(new Color(0x599a9c));
         blueTimer.setBounds(71, 50, 350, 200);
@@ -74,8 +71,8 @@ public class PomodoroGUI extends JFrame{
         //darkBlue parts
         rootDarkBlue.setLayout(null);
         rootDarkBlue.setBackground(new Color(0x437ea8));
-        rootDarkBlue.setBounds(tabbedPane.getBounds());
-        rootDarkBlue.setSize(tabbedPane.getSize());
+        rootDarkBlue.setBounds(tabbedPane1.getBounds());
+        rootDarkBlue.setSize(tabbedPane1.getSize());
 
         darkBlueTimer.setBackground(new Color(0x568bb1));
         darkBlueTimer.setBounds(71, 50, 350, 200);
@@ -86,20 +83,20 @@ public class PomodoroGUI extends JFrame{
         rootDarkBlue.add(darkBlueButton);
 
         //tabbedPane-stuff
-        tabbedPane.setBounds(this.getBounds());
-        tabbedPane.setSize(this.getSize());
-        tabbedPane.addTab("Pomodoro", images.tomato, rootRed);
-        tabbedPane.addTab("Short Break", images.coffeeCup, rootBlue);
-        tabbedPane.addTab("Long Break", images.coffeeCup2, rootDarkBlue);
-        tabbedPane.addChangeListener(e -> {
+        tabbedPane1.setBounds(this.getBounds());
+        tabbedPane1.setSize(this.getSize());
+        tabbedPane1.addTab("Pomodoro", images.tomato, rootRed);
+        tabbedPane1.addTab("Short Break", images.coffeeCup, rootBlue);
+        tabbedPane1.addTab("Long Break", images.coffeeCup2, rootDarkBlue);
+        tabbedPane1.addChangeListener(e -> {
             JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
             int selectedIndex = tabbedPane.getSelectedIndex();
             //System.out.println(selectedIndex);
         });
 
         //finish frame
-        this.setJMenuBar(menuBar);
-        this.add(tabbedPane);
+        setJMenuBar(menuBar);
+        add(tabbedPane1);
     }
 
     public void setRedTimeWithFrame() {

@@ -242,9 +242,9 @@ public class PomodoroMenuBar extends JMenuBar {
         //select the right radiobutton
         selectRadioButton();
 
-        this.setOpaque(true);
-        this.setBackground(new Color(0xD3D3D3));
-        this.add(settingsMenu);
+        setOpaque(true);
+        setBackground(new Color(0xD3D3D3));
+        add(settingsMenu);
     }
 
     private void selectRadioButton() {

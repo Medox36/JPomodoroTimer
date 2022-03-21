@@ -10,10 +10,10 @@ public class CustomTime extends JFrame {
     public CustomTime(String title, PomodoroTimeLabel timeLabel, ImageIcon icon, PomodoroGUI gui) {
         super(title);
         this.timeLabel = timeLabel;
-        this.setSize(300,150);
-        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        this.setResizable(false);
-        this.setIconImage(icon.getImage());
+        setSize(300,150);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
+        setIconImage(icon.getImage());
         this.gui = gui;
         JPanel root = new JPanel();
 
@@ -50,10 +50,10 @@ public class CustomTime extends JFrame {
         root.add(secSpinner);
         root.add(confirm);
         root.add(cancel);
-        this.add(root);
-        this.setAlwaysOnTop(true);
-        this.getRootPane().setDefaultButton(confirm);
-        this.setVisible(true);
+        add(root);
+        setAlwaysOnTop(true);
+        getRootPane().setDefaultButton(confirm);
+        setVisible(true);
     }
 
     private void confirm(){

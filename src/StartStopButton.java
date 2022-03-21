@@ -7,14 +7,14 @@ public class StartStopButton extends JButton {
 
     public StartStopButton(TimerManagement tm, PomodoroTimer pomodoroTimer) {
         super("Start");
-        this.setBounds(145, 310,200,75);
-        this.setFont(new Font("Gadugi",Font.PLAIN,50));
-        this.setFocusPainted(false);
-        this.setMultiClickThreshhold(500);
+        setBounds(145, 310,200,75);
+        setFont(new Font("Gadugi",Font.PLAIN,50));
+        setFocusPainted(false);
+        setMultiClickThreshhold(500);
         this.tm = tm;
         this.pomodoroTimer = pomodoroTimer;
         this.pomodoroTimer.setButton(this);
-        this.addActionListener(e -> {
+        addActionListener(e -> {
             if (pomodoroTimer.isActive()) {
                 setStop();
             } else {

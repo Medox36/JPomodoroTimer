@@ -1,7 +1,6 @@
 import java.io.*;
 
 public class Settings {
-    private InputStream in;
     private String redMin, redSec;
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
@@ -10,18 +9,13 @@ public class Settings {
     private boolean autoPomodoros;
 
     public Settings() {
-        try {
-            in = getClass().getResourceAsStream("settings/settings.txt");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         checkFiles();
     }
 
     private void checkFiles() {
         try {
             if (!new File("settings.txt").exists()) {
-                loadContentsFromStandardFile();
+                loadStandardValues();
             } else {
                 File file = new File("settings.txt");
                 loadContentsFromCustomFile(file);
@@ -37,11 +31,8 @@ public class Settings {
         }
     }
 
-    private void loadContentsFromStandardFile() throws IOException {
-        loadFromFile(new BufferedReader(new InputStreamReader(in)));
-    }
 
-    protected void loadContentsFromCustomFile(File file) throws IOException {
+    public void loadContentsFromCustomFile(File file) throws IOException {
         loadFromFile(new BufferedReader(new FileReader(file)));
     }
 

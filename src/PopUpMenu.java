@@ -15,20 +15,20 @@ public class PopUpMenu extends PopupMenu {
         notifications.setState(Objects.equals(settings.getNotifications(), "off"));
         exit = new MenuItem("exit");
         ActionListener actionListener = e -> {
-            if (open.equals(e.getSource())) {
+            if (e.getSource().equals(open)) {
                 if (pomodoroGUI.isShowing()) {
                     pomodoroGUI.setState(JFrame.NORMAL);
                 } else {
                     pomodoroGUI.setVisible(true);
                 }
-            } else if (setting.equals(e.getSource())) {
+            } else if (e.getSource().equals(setting)) {
                 if (pomodoroGUI.isShowing()) {
                     pomodoroGUI.setState(JFrame.NORMAL);
                 } else {
                     pomodoroGUI.setVisible(true);
                 }
                 pomodoroGUI.getBar().getMenu(0).doClick();
-            } else if (exit.equals(e.getSource())) {
+            } else if (e.getSource().equals(exit)) {
                 //TODO save settings and close
                 pomodoroGUI.dispatchEvent(new WindowEvent(pomodoroGUI, WindowEvent.WINDOW_CLOSING));
                 pomodoroGUI.setVisible(false);
@@ -45,11 +45,11 @@ public class PopUpMenu extends PopupMenu {
         open.addActionListener(actionListener);
         setting.addActionListener(actionListener);
         exit.addActionListener(actionListener);
-        this.add(open);
-        this.add(setting);
-        this.addSeparator();
-        this.add(notifications);
-        this.addSeparator();
-        this.add(exit);
+        add(open);
+        add(setting);
+        addSeparator();
+        add(notifications);
+        addSeparator();
+        add(exit);
     }
 }

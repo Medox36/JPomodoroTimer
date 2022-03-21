@@ -13,8 +13,8 @@ public class Tray extends TrayIcon {
         this.images = images;
         this.settings = settings;
         this.pomodoroGUI = pomodoroGUI;
-        this.setImageAutoSize(true);
-        this.addMouseListener(new MouseAdapter() {
+        setImageAutoSize(true);
+        addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() > 1) {

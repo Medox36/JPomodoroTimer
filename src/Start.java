@@ -5,10 +5,6 @@ public class Start {
     private PopUpMenu popUpMenu;
     private PomodoroGUI pomodoroGUI;
 
-    public Start() {
-
-    }
-
     public void initialize() {
         images = new Images();
         settings = new Settings();

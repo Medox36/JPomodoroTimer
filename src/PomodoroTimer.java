@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class PomodoroTimer {
     private final PomodoroTimeLabel label;
@@ -33,6 +34,9 @@ public class PomodoroTimer {
     private void decreaseTimer() {
         updateTime();
         time = time.minusSeconds(1);
+        if (Objects.equals(label.getMin(), "0") && Objects.equals(label.getSec(), "0")) {
+            //TODO play finished sound and check if Autobreak and or Autopomodoro is active
+        }
         updateLabel();
     }
 
