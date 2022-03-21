@@ -6,12 +6,13 @@ import java.util.Objects;
 
 public class PopUpMenu extends PopupMenu {
     private final MenuItem open, setting, exit;
+    private final CheckboxMenuItem notifications;
 
     public PopUpMenu(PomodoroGUI pomodoroGUI) {
         super();
         open = new MenuItem("open");
         setting = new MenuItem("settings");
-        CheckboxMenuItem notifications = new CheckboxMenuItem("turn off notifications");
+        notifications = new CheckboxMenuItem("turn off notifications");
         notifications.setState(Objects.equals(Settings.getInstance().getNotifications(), "off"));
         exit = new MenuItem("exit");
         ActionListener actionListener = e -> {
@@ -51,5 +52,15 @@ public class PopUpMenu extends PopupMenu {
         add(notifications);
         addSeparator();
         add(exit);
+
+        pomodoroGUI.setPopUpMenu(this);
+    }
+
+    public void setNotifications(String notifications) {
+        if (notifications.equals("off")) {
+            this.notifications.setState(true);
+        } else {
+            this.notifications.setState(false);
+        }
     }
 }

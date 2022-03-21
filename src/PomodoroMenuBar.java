@@ -12,6 +12,8 @@ public class PomodoroMenuBar extends JMenuBar {
     private final Settings settings;
     private final PomodoroGUI pomodoroGUI;
     private final JRadioButtonMenuItem off, bell, digital;
+    private final JCheckBoxMenuItem autoBreaks;
+    private final JCheckBoxMenuItem autoPomodoro;
 
     public PomodoroMenuBar(PomodoroGUI pomodoroGUI, Images images) {
         this.pomodoroGUI = pomodoroGUI;
@@ -39,8 +41,8 @@ public class PomodoroMenuBar extends JMenuBar {
         JMenuItem darkBlue15 = new JMenuItem("15 min");
         JMenuItem darkBlue10 = new JMenuItem("10 min");
         JMenuItem darkBlueCustom = new JMenuItem("Custom Time");
-        JCheckBoxMenuItem autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
-        JCheckBoxMenuItem autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
+        autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
+        autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
 
         ActionListener notificationListener = e -> {
             if (e.getSource().equals(off) || e.getSource().equals(bell) || e.getSource().equals(digital)) {
@@ -146,7 +148,7 @@ public class PomodoroMenuBar extends JMenuBar {
             if (val == JFileChooser.APPROVE_OPTION) {
                 try {
                     settings.loadContentsFromCustomFile(fileChooser.getSelectedFile());
-                    pomodoroGUI.updateSettings();
+                    pomodoroGUI.reloadSettings();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -263,4 +265,11 @@ public class PomodoroMenuBar extends JMenuBar {
         }
     }
 
+    public void setAutoBreaks(boolean sel) {
+        autoBreaks.setSelected(sel);
+    }
+
+    public void setAutoPomodoro(boolean sel) {
+        autoPomodoro.setSelected(sel);
+    }
 }

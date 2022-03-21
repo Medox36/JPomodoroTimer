@@ -7,6 +7,7 @@ public class PomodoroGUI extends JFrame{
     private final Images images;
     private final Settings settings;
     private final TimerManagement timerManagement;
+    private PopUpMenu popUpMenu;
 
     public PomodoroGUI(Images images) {
         try {
@@ -131,8 +132,17 @@ public class PomodoroGUI extends JFrame{
         timerManagement.resumeActiveTimer();
     }
 
-    public void updateSettings() {
+    public void reloadSettings() {
+        redTime.setTime(settings.getRedTime());
+        blueTime.setTime(settings.getBlueTime());
+        darkBlueTime.setTime(settings.getDarkBlueTime());
+        menuBar.setAutoBreaks(settings.isAutoBreaks());
+        menuBar.setAutoPomodoro(settings.isAutoPomodoros());
+        popUpMenu.setNotifications(settings.getNotifications());
+    }
 
+    public void setPopUpMenu(PopUpMenu popUpMenu) {
+        this.popUpMenu = popUpMenu;
     }
 
     public PomodoroTimeLabel getRedTimeLabel() {
