@@ -43,9 +43,13 @@ public class PomodoroMenuBar extends JMenuBar {
         JCheckBoxMenuItem autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
 
         ActionListener notificationListener = e -> {
-            System.out.println(e.getSource());
-            System.out.println("\t" + e.getActionCommand());
-            //TODO evaluate the Event
+            if (e.getSource().equals(off) || e.getSource().equals(bell) || e.getSource().equals(digital)) {
+                settings.setNotifications(e.getActionCommand());
+            } else if (e.getSource().equals(autoBreaks)) {
+                settings.setAutoBreaks(autoBreaks.getState());
+            } else if (e.getSource().equals(autoPomodoro)) {
+                settings.setAutoPomodoros(autoPomodoro.getState());
+            }
         };
         ActionListener redTimeMenu = e -> {
             String str = e.getActionCommand();
@@ -219,6 +223,9 @@ public class PomodoroMenuBar extends JMenuBar {
 
         saveSettings.addActionListener(saveSettingsListener);
         loadSettings.addActionListener(loadSettingsListener);
+
+        autoBreaks.addActionListener(notificationListener);
+        autoPomodoro.addActionListener(notificationListener);
 
         settingsMenu.add(autoBreaks);
         settingsMenu.add(autoPomodoro);

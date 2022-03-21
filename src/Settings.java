@@ -133,6 +133,18 @@ public class Settings {
         return notifications;
     }
 
+    public void setNotifications(String notifications) {
+        this.notifications = notifications;
+    }
+
+    public void setAutoBreaks(boolean autoBreaks) {
+        this.autoBreaks = autoBreaks;
+    }
+
+    public void setAutoPomodoros(boolean autoPomodoros) {
+        this.autoPomodoros = autoPomodoros;
+    }
+
     public static Settings getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Settings();

@@ -32,6 +32,9 @@ public class PomodoroGUI extends JFrame{
         StartStopButton redButton = new StartStopButton(timerManagement, timerManagement.getRedTimer());
         StartStopButton blueButton = new StartStopButton(timerManagement, timerManagement.getBlueTimer());
         StartStopButton darkBlueButton = new StartStopButton(timerManagement, timerManagement.getDarkBlueTimer());
+        ResetButton redResetButton = new ResetButton(redTime, 0);
+        ResetButton blueResetButton = new ResetButton(blueTime, 1);
+        ResetButton darkBlueResetButton = new ResetButton(darkBlueTime, 2);
 
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setResizable(false);
@@ -53,6 +56,7 @@ public class PomodoroGUI extends JFrame{
         redTimer.add(redTime, BorderLayout.CENTER);
         rootRed.add(redTimer);
         rootRed.add(redButton);
+        rootRed.add(redResetButton);
 
         //blue parts
         rootBlue.setLayout(null);
@@ -67,6 +71,7 @@ public class PomodoroGUI extends JFrame{
         blueTimer.add(blueTime);
         rootBlue.add(blueTimer);
         rootBlue.add(blueButton);
+        rootBlue.add(blueResetButton);
 
         //darkBlue parts
         rootDarkBlue.setLayout(null);
@@ -81,6 +86,7 @@ public class PomodoroGUI extends JFrame{
         darkBlueTimer.add(darkBlueTime);
         rootDarkBlue.add(darkBlueTimer);
         rootDarkBlue.add(darkBlueButton);
+        rootDarkBlue.add(darkBlueResetButton);
 
         //tabbedPane-stuff
         tabbedPane1.setBounds(this.getBounds());
