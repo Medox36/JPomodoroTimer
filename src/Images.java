@@ -1,4 +1,4 @@
-import javax.swing.*;
+import javax.swing.ImageIcon;
 import java.util.Objects;
 
 public class Images {
