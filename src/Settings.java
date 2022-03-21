@@ -25,8 +25,8 @@ public class Settings {
         } catch (Exception e) {
             System.err.println("[");
             System.err.println("The program had issues reading from the \"settings.txt\" file(s) so the standard values were loaded.");
-            System.err.println("Either the default settings.txt within the jar-file or a custom settings.txt file was found or couldn't be loaded.");
-            System.err.println("If this error persists try re-downloading the Jar-File");
+            System.err.println("Either a custom settings.txt file was found but couldn't be loaded or there are some problems with the program.");
+            System.err.println("If this error persists try re-downloading the Jar-File or EXE-File.");
             e.printStackTrace();
             System.err.println("]");
             loadStandardValues();
