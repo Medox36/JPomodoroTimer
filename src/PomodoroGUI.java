@@ -110,11 +110,6 @@ public class PomodoroGUI extends JFrame{
         tabbedPane.addTab("Pomodoro", Images.tomato, rootRed);
         tabbedPane.addTab("Short Break", Images.coffeeCup, rootBlue);
         tabbedPane.addTab("Long Break", Images.coffeeCup2, rootDarkBlue);
-        tabbedPane.addChangeListener(e -> {
-            JTabbedPane tabbedPane = (JTabbedPane) e.getSource();
-            int selectedIndex = tabbedPane.getSelectedIndex();
-            //System.out.println(selectedIndex);
-        });
 
         //finish frame
         setJMenuBar(menuBar);
