@@ -23,7 +23,7 @@ public class PomodoroMenuBar extends JMenuBar {
         JMenu redTimes = new JMenu("Pomodoro Time");
         JMenu blueTimes = new JMenu("Short Break Time");
         JMenu darkBlueTimes = new JMenu("Long Break Time");
-        JMenuItem breakInterval = new JMenuItem("Long Break Interval");
+        JMenuItem breakInterval = new JMenuItem("Long Break Interval", Images.coffeeCup3);
         JMenuItem saveSettings = new JMenuItem("Save Settings", Images.settingsSave);
         JMenuItem loadSettings = new JMenuItem("Load Settings", Images.settingsLoad);
         off = new JRadioButtonMenuItem("off");
