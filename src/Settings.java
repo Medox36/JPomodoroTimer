@@ -92,8 +92,11 @@ public class Settings {
         }
         try {
             breakInterval = Integer.parseInt(fr.readLine());
+            if (breakInterval < 0 || breakInterval > 6) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
-            breakInterval = 2;
+            breakInterval = 3;
         }
         autoBreaks = Boolean.parseBoolean(fr.readLine());
         autoPomodoros = Boolean.parseBoolean(fr.readLine());
@@ -119,7 +122,7 @@ public class Settings {
         darkBlueMin = "15";
         darkBlueSec = "00";
         notifications = "off";
-        breakInterval = 2;
+        breakInterval = 3;
         autoBreaks = false;
         autoPomodoros = false;
     }

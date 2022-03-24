@@ -42,6 +42,7 @@ public class TimerManagement {
     public void timerEnded(int colour) {
         Settings.getInstance().playRightSound();
         if (colour == 0) {
+            breakIntervalCounter++;
             if (breakIntervalCounter >= Settings.getInstance().getBreakInterval()) {
                 pomodoroGUI.setSelectedTab(2);
                 breakIntervalCounter = 0;
@@ -49,7 +50,6 @@ public class TimerManagement {
                     darkBlueButton.startTimer();
                 }
             } else {
-                breakIntervalCounter++;
                 pomodoroGUI.setSelectedTab(1);
                 if (Settings.getInstance().isAutoBreaks()) {
                     blueButton.startTimer();
