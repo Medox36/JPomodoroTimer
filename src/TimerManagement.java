@@ -1,6 +1,7 @@
 public class TimerManagement {
     private final PomodoroTimer redTimer, blueTimer, darkBlueTimer;
     private StartStopButton redButton, blueButton, darkBlueButton;
+    private ResetButton redResetB, blueResetB, darkBlueResetB;
     private final PomodoroGUI pomodoroGUI;
     private int wasActive;
     private int breakIntervalCounter;
@@ -54,10 +55,16 @@ public class TimerManagement {
                     blueButton.startTimer();
                 }
             }
+            redResetB.doClick();
         } else if (colour == 1 || colour == 2) {
             pomodoroGUI.setSelectedTab(0);
             if (Settings.getInstance().isAutoPomodoros()) {
                 redButton.startTimer();
+            }
+            if (colour == 1) {
+                blueResetB.doClick();
+            } else {
+                darkBlueResetB.doClick();
             }
         }
     }
@@ -66,6 +73,12 @@ public class TimerManagement {
         this.redButton = redButton;
         this.blueButton = blueButton;
         this.darkBlueButton = darkBlueButton;
+    }
+
+    public void setResetButtons(ResetButton redResetB, ResetButton blueResetB, ResetButton darkBlueResetB) {
+        this.redResetB = redResetB;
+        this.blueResetB = blueResetB;
+        this.darkBlueResetB = darkBlueResetB;
     }
 
     public PomodoroTimer getRedTimer() {

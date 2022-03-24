@@ -6,6 +6,7 @@ import java.util.Objects;
 public class PomodoroTimer {
     private final PomodoroTimeLabel label;
     private final TimerManagement tm;
+    private StartStopButton button;
     private LocalTime time;
     private final Timer timer;
     private final int colour;
@@ -35,10 +36,11 @@ public class PomodoroTimer {
     private void decreaseTimer() {
         updateTime();
         time = time.minusSeconds(1);
+        updateLabel();
         if (Objects.equals(label.getMin(), "0") && Objects.equals(label.getSec(), "0")) {
+            button.stopTimer();
             tm.timerEnded(colour);
         }
-        updateLabel();
     }
 
     private void updateTime() {
@@ -58,5 +60,9 @@ public class PomodoroTimer {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public void setButton(StartStopButton button) {
+        this.button = button;
     }
 }

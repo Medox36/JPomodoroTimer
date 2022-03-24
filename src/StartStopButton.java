@@ -20,6 +20,7 @@ public class StartStopButton extends JButton {
                 setRunning();
             }
         });
+        pomodoroTimer.setButton(this);
     }
 
     private void setStop() {
@@ -35,5 +36,9 @@ public class StartStopButton extends JButton {
 
     public void startTimer() {
         setRunning();
+    }
+
+    public void stopTimer() {
+        setStop();
     }
 }

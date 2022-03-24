@@ -50,6 +50,7 @@ public class PomodoroGUI extends JFrame{
         ResetButton darkBlueResetButton = new ResetButton(darkBlueTime, 2);
 
         timerManagement.setStartStopButtons(redButton, blueButton, darkBlueButton);
+        timerManagement.setResetButtons(redResetButton, blueResetButton, darkBlueResetButton);
 
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setResizable(false);

@@ -15,6 +15,7 @@ public class PomodoroSound {
 
     public static void playDigitalAlarm() {
         try {
+            closeClipIfOpen();
             AudioInputStream audio = AudioSystem.getAudioInputStream(Objects.requireNonNull(PomodoroSound.class.getResource("sounds/digital_clock_alarm.wav")));
             clip.open(audio);
             FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -27,6 +28,7 @@ public class PomodoroSound {
 
     public static void playBellAlarm() {
         try {
+            closeClipIfOpen();
             AudioInputStream audio = AudioSystem.getAudioInputStream(Objects.requireNonNull(PomodoroSound.class.getResource("sounds/bell_alarm.wav")));
             clip.open(audio);
             FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -34,6 +36,12 @@ public class PomodoroSound {
             clip.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void closeClipIfOpen() {
+        if (clip.isOpen()) {
+            clip.close();
         }
     }
 }
