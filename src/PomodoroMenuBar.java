@@ -15,7 +15,7 @@ public class PomodoroMenuBar extends JMenuBar {
     private final JCheckBoxMenuItem autoBreaks;
     private final JCheckBoxMenuItem autoPomodoro;
 
-    public PomodoroMenuBar(PomodoroGUI pomodoroGUI, Images images) {
+    public PomodoroMenuBar(PomodoroGUI pomodoroGUI) {
         this.pomodoroGUI = pomodoroGUI;
         settings = Settings.getInstance();
         JMenu settingsMenu = new JMenu();
@@ -156,7 +156,7 @@ public class PomodoroMenuBar extends JMenuBar {
         };
 
         settingsMenu.setText("Settings");
-        settingsMenu.setIcon(images.settingsIcon);
+        settingsMenu.setIcon(Images.settingsIcon);
         settingsMenu.setIconTextGap(8);
 
         red30.setActionCommand("30:00");
@@ -188,20 +188,20 @@ public class PomodoroMenuBar extends JMenuBar {
         darkBlueCustom.setActionCommand("custom");
         darkBlueCustom.addActionListener(darkBlueTimeMenu);
 
-        redTimes.setIcon(images.tomato);
+        redTimes.setIcon(Images.tomato);
         redTimes.add(red30);
         redTimes.add(red25);
         redTimes.add(red20);
         redTimes.add(red15);
         redTimes.add(redCustom);
 
-        blueTimes.setIcon(images.coffeeCup);
+        blueTimes.setIcon(Images.coffeeCup);
         blueTimes.add(blue15);
         blueTimes.add(blue10);
         blueTimes.add(blue5);
         blueTimes.add(blueCustom);
 
-        darkBlueTimes.setIcon(images.coffeeCup2);
+        darkBlueTimes.setIcon(Images.coffeeCup2);
         darkBlueTimes.add(darkBlue20);
         darkBlueTimes.add(darkBlue15);
         darkBlueTimes.add(darkBlue10);
@@ -214,7 +214,7 @@ public class PomodoroMenuBar extends JMenuBar {
         digital.addActionListener(notificationListener);
         digital.setActionCommand("digital");
 
-        notifications.setIcon(images.notification);
+        notifications.setIcon(Images.notification);
         ButtonGroup notificationGroup = new ButtonGroup();
         notificationGroup.add(off);
         notificationGroup.add(bell);
