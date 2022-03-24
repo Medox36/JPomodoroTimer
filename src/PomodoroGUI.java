@@ -27,7 +27,20 @@ public class PomodoroGUI extends JFrame{
         redTime = new PomodoroTimeLabel(settings.getRedTime(), "red");
         blueTime = new PomodoroTimeLabel(settings.getBlueTime(), "blue");
         darkBlueTime = new PomodoroTimeLabel(settings.getDarkBlueTime(), "darkblue");
+
+        //changing the UIManager for the MenuBar
+        try {
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
         menuBar = new PomodoroMenuBar(this);
+        //changing the UIManager back for the rest of the GUI
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
         timerManagement = new TimerManagement(redTime, blueTime, darkBlueTime, this);
         StartStopButton redButton = new StartStopButton(timerManagement, timerManagement.getRedTimer());
         StartStopButton blueButton = new StartStopButton(timerManagement, timerManagement.getBlueTimer());
