@@ -57,10 +57,6 @@ public class PopUpMenu extends PopupMenu {
     }
 
     public void setNotifications(String notifications) {
-        if (notifications.equals("off")) {
-            this.notifications.setState(true);
-        } else {
-            this.notifications.setState(false);
-        }
+        this.notifications.setState(notifications.equals("off"));
     }
 }
