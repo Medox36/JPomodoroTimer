@@ -3,9 +3,9 @@ public class TimerManagement {
     private int wasActive;
 
     public TimerManagement(PomodoroTimeLabel redLabel, PomodoroTimeLabel blueLabel, PomodoroTimeLabel darkblueLabel) {
-        redTimer = new PomodoroTimer(redLabel);
-        blueTimer = new PomodoroTimer(blueLabel);
-        darkBlueTimer = new PomodoroTimer(darkblueLabel);
+        redTimer = new PomodoroTimer(redLabel, 0);
+        blueTimer = new PomodoroTimer(blueLabel, 1);
+        darkBlueTimer = new PomodoroTimer(darkblueLabel, 2);
     }
 
     public void stopActiveTimer() {

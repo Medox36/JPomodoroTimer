@@ -3,9 +3,9 @@ import java.io.IOException;
 import javax.sound.sampled.*;
 
 public class PomodoroSound {
-    private Clip clip;
+    private static Clip clip;
 
-    public PomodoroSound() {
+    static {
         try {
             clip = AudioSystem.getClip();
         } catch (LineUnavailableException e) {
@@ -13,7 +13,7 @@ public class PomodoroSound {
         }
     }
 
-    public void playDigitalAlarm() {
+    public static void playDigitalAlarm() {
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(Objects.requireNonNull(PomodoroSound.class.getResource("sounds/digital_clock_alarm.wav")));
             clip.open(audio);
@@ -25,7 +25,7 @@ public class PomodoroSound {
         }
     }
 
-    public void playBellAlarm() {
+    public static void playBellAlarm() {
         try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(Objects.requireNonNull(PomodoroSound.class.getResource("sounds/bell_alarm.wav")));
             clip.open(audio);

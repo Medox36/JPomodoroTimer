@@ -33,6 +33,14 @@ public class Settings {
         }
     }
 
+    public void playRightSound() {
+        switch (notifications) {
+            case "off" -> {}
+            case "bell" -> PomodoroSound.playBellAlarm();
+            case "digital" -> PomodoroSound.playDigitalAlarm();
+            default -> throw new IllegalStateException("Unexpected value: " + notifications);
+        }
+    }
 
     public void loadContentsFromCustomFile(File file) throws IOException {
         loadFromFile(new BufferedReader(new FileReader(file)));
