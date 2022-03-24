@@ -5,16 +5,17 @@ import java.util.Objects;
 
 public class PomodoroTimer {
     private final PomodoroTimeLabel label;
-    private StartStopButton button;
+    private final TimerManagement tm;
     private LocalTime time;
     private final Timer timer;
     private final int colour;
     private boolean isActive;
 
-    public PomodoroTimer(PomodoroTimeLabel label, int colour) {
+    public PomodoroTimer(PomodoroTimeLabel label, int colour, TimerManagement tm) {
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("mm:ss");
         this.label = label;
         this.colour = colour;
+        this.tm = tm;
         time = LocalTime.of(0, Integer.parseInt(label.getMin()), Integer.parseInt(label.getSec()));
         time.format(timeFormatter);
         timer = new Timer(1000, e -> decreaseTimer());
@@ -24,30 +25,18 @@ public class PomodoroTimer {
     public void startTimer() {
         isActive = true;
         timer.start();
-        button.setText("Stop");
     }
 
     public void haltTimer() {
         timer.stop();
         isActive = false;
-        button.setText("Start");
     }
 
     private void decreaseTimer() {
         updateTime();
         time = time.minusSeconds(1);
         if (Objects.equals(label.getMin(), "0") && Objects.equals(label.getSec(), "0")) {
-            //TODO play finished sound and check if Autobreak and or Autopomodoro is active
-            Settings.getInstance().playRightSound();
-            if (colour == 0) {
-                if (Settings.getInstance().isAutoBreaks()) {
-                    //TODO find out if short or long break is coming and start the break
-                }
-            } else if (colour == 1 || colour == 2) {
-                if (Settings.getInstance().isAutoPomodoros()) {
-                    //TODO start the Pomodoro Timer aka Work Timer
-                }
-            }
+            tm.timerEnded(colour);
         }
         updateLabel();
     }
@@ -69,9 +58,5 @@ public class PomodoroTimer {
 
     public boolean isActive() {
         return isActive;
-    }
-
-    public void setButton(StartStopButton button) {
-        this.button = button;
     }
 }

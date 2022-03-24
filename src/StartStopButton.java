@@ -13,7 +13,6 @@ public class StartStopButton extends JButton {
         setMultiClickThreshhold(500);
         this.tm = tm;
         this.pomodoroTimer = pomodoroTimer;
-        this.pomodoroTimer.setButton(this);
         addActionListener(e -> {
             if (pomodoroTimer.isActive()) {
                 setStop();
@@ -32,5 +31,9 @@ public class StartStopButton extends JButton {
         tm.stopActiveTimer();
         pomodoroTimer.startTimer();
         setText("Stop");
+    }
+
+    public void startTimer() {
+        setRunning();
     }
 }
