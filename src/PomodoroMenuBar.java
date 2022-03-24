@@ -23,8 +23,9 @@ public class PomodoroMenuBar extends JMenuBar {
         JMenu redTimes = new JMenu("Pomodoro Time");
         JMenu blueTimes = new JMenu("Short Break Time");
         JMenu darkBlueTimes = new JMenu("Long Break Time");
-        JMenuItem saveSettings = new JMenuItem("Save Settings", images.settingsSave);
-        JMenuItem loadSettings = new JMenuItem("Load Settings", images.settingsLoad);
+        JMenuItem breakInterval = new JMenuItem("Long Break Interval");
+        JMenuItem saveSettings = new JMenuItem("Save Settings", Images.settingsSave);
+        JMenuItem loadSettings = new JMenuItem("Load Settings", Images.settingsLoad);
         off = new JRadioButtonMenuItem("off");
         bell = new JRadioButtonMenuItem("Bell");
         digital = new JRadioButtonMenuItem("Digital");
@@ -77,6 +78,7 @@ public class PomodoroMenuBar extends JMenuBar {
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
         };
+        ActionListener breakIntervalListener = e -> new CustomNumber();
         ActionListener saveSettingsListener = e -> {
             try {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -207,6 +209,8 @@ public class PomodoroMenuBar extends JMenuBar {
         darkBlueTimes.add(darkBlue10);
         darkBlueTimes.add(darkBlueCustom);
 
+        breakInterval.addActionListener(breakIntervalListener);
+
         off.addActionListener(notificationListener);
         off.setActionCommand("off");
         bell.addActionListener(notificationListener);
@@ -235,6 +239,7 @@ public class PomodoroMenuBar extends JMenuBar {
         settingsMenu.add(redTimes);
         settingsMenu.add(blueTimes);
         settingsMenu.add(darkBlueTimes);
+        settingsMenu.add(breakInterval);
         settingsMenu.addSeparator();
         settingsMenu.add(notifications);
         settingsMenu.addSeparator();

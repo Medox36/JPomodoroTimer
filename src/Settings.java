@@ -7,6 +7,7 @@ public class Settings {
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
     private String notifications;
+    private int breakInterval;
     private boolean autoBreaks;
     private boolean autoPomodoros;
 
@@ -89,6 +90,11 @@ public class Settings {
         } else {
             notifications = "off";
         }
+        try {
+            breakInterval = Integer.parseInt(fr.readLine());
+        } catch (NumberFormatException e) {
+            breakInterval = 2;
+        }
         autoBreaks = Boolean.parseBoolean(fr.readLine());
         autoPomodoros = Boolean.parseBoolean(fr.readLine());
     }
@@ -99,7 +105,7 @@ public class Settings {
 
     private void saveToFile(FileWriter fw) throws IOException {
         String l = System.lineSeparator();
-        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + notifications + l + autoBreaks + l + autoPomodoros;
+        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + notifications + l + breakInterval + l + autoBreaks + l + autoPomodoros;
         fw.write(str);
         fw.flush();
         fw.close();
@@ -113,6 +119,7 @@ public class Settings {
         darkBlueMin = "15";
         darkBlueSec = "00";
         notifications = "off";
+        breakInterval = 2;
         autoBreaks = false;
         autoPomodoros = false;
     }
@@ -129,6 +136,10 @@ public class Settings {
         return darkBlueMin + ":" + darkBlueSec;
     }
 
+    public int getBreakInterval() {
+        return breakInterval;
+    }
+
     public boolean isAutoBreaks() {
         return autoBreaks;
     }
@@ -143,6 +154,10 @@ public class Settings {
 
     public void setNotifications(String notifications) {
         this.notifications = notifications;
+    }
+
+    public void setBreakInterval(int breakInterval) {
+        this.breakInterval = breakInterval;
     }
 
     public void setAutoBreaks(boolean autoBreaks) {
