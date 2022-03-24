@@ -80,8 +80,8 @@ public class CustomTime extends JFrame {
     }
 
     private void closeFrame() {
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        this.setVisible(false);
-        this.dispose();
+        dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        setVisible(false);
+        dispose();
     }
 }
