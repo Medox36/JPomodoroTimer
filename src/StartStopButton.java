@@ -1,5 +1,5 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import java.awt.Font;
 
 public class StartStopButton extends JButton {
     private final PomodoroTimer pomodoroTimer;

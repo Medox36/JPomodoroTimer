@@ -1,4 +1,4 @@
-import javax.swing.*;
+import javax.swing.Timer;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
