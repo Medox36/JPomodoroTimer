@@ -49,7 +49,7 @@ public class PomodoroMenuBar extends JMenuBar {
 
         ActionListener notificationListener = e -> {
             if (e.getSource().equals(off) || e.getSource().equals(bell) || e.getSource().equals(digital)) {
-                settings.setNotifications(e.getActionCommand());
+                settings.setAlarm(e.getActionCommand());
             } else if (e.getSource().equals(autoBreaks)) {
                 settings.setAutoBreaks(autoBreaks.getState());
             } else if (e.getSource().equals(autoPomodoro)) {
@@ -282,13 +282,17 @@ public class PomodoroMenuBar extends JMenuBar {
         add(settingsMenu);
     }
 
-    private void selectRadioButton() {
-        switch (settings.getNotifications()) {
+    public void selectRadioButton() {
+        switch (settings.getAlarm()) {
             case "off" -> off.setSelected(true);
             case "bell" -> bell.setSelected(true);
             case "digital" -> digital.setSelected(true);
-            default -> throw new IllegalStateException("Unexpected value: " + settings.getNotifications());
+            default -> throw new IllegalStateException("Unexpected value: " + settings.getAlarm());
         }
+    }
+
+    public void setMinimizeToTray(boolean minimize) {
+        minimizeToTray.setSelected(minimize);
     }
 
     public void setAutoBreaks(boolean sel) {

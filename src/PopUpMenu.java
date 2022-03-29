@@ -58,7 +58,7 @@ public class PopUpMenu extends PopupMenu {
         pomodoroGUI.setPopUpMenu(this);
     }
 
-    public void setNotifications(String notifications) {
-        this.notifications.setState(notifications.equals("off"));
+    public void setMute(boolean state) {
+        this.notifications.setState(state);
     }
 }

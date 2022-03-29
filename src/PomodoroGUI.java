@@ -151,9 +151,11 @@ public class PomodoroGUI extends JFrame{
         redTime.setTime(settings.getRedTime());
         blueTime.setTime(settings.getBlueTime());
         darkBlueTime.setTime(settings.getDarkBlueTime());
+        menuBar.selectRadioButton();
+        menuBar.setMinimizeToTray(settings.isMinimizeToTray());
         menuBar.setAutoBreaks(settings.isAutoBreaks());
         menuBar.setAutoPomodoro(settings.isAutoPomodoros());
-        popUpMenu.setNotifications(settings.getNotifications());
+        popUpMenu.setMute(settings.isMuted());
     }
 
     public void setPopUpMenu(PopUpMenu popUpMenu) {

@@ -6,7 +6,7 @@ public class Settings {
     private String redMin, redSec;
     private String blueMin, blueSec;
     private String darkBlueMin, darkBlueSec;
-    private String notifications;
+    private String alarm;
     private int breakInterval;
     private boolean muted;
     private boolean minimizeToTray;
@@ -37,11 +37,11 @@ public class Settings {
     }
 
     public void playRightSound() {
-        switch (notifications) {
+        switch (alarm) {
             case "off" -> {}
             case "bell" -> PomodoroSound.playBellAlarm();
             case "digital" -> PomodoroSound.playDigitalAlarm();
-            default -> throw new IllegalStateException("Unexpected value: " + notifications);
+            default -> throw new IllegalStateException("Unexpected value: " + alarm);
         }
     }
 
@@ -88,9 +88,9 @@ public class Settings {
         }
         str = fr.readLine();
         if (str.equals("off") || str.equals("bell") || str.equals("digital")) {
-            notifications = str;
+            alarm = str;
         } else {
-            notifications = "off";
+            alarm = "off";
         }
         try {
             breakInterval = Integer.parseInt(fr.readLine());
@@ -112,7 +112,7 @@ public class Settings {
 
     private void saveToFile(FileWriter fw) throws IOException {
         String l = System.lineSeparator();
-        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + notifications + l + breakInterval + l + minimizeToTray + l + autoBreaks + l + autoPomodoros;
+        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + alarm + l + breakInterval + l + minimizeToTray + l + autoBreaks + l + autoPomodoros;
         fw.write(str);
         fw.flush();
         fw.close();
@@ -125,7 +125,7 @@ public class Settings {
         blueSec = "00";
         darkBlueMin = "15";
         darkBlueSec = "00";
-        notifications = "off";
+        alarm = "off";
         breakInterval = 3;
         muted = false;
         minimizeToTray = true;
@@ -165,12 +165,12 @@ public class Settings {
         return autoPomodoros;
     }
 
-    public String getNotifications() {
-        return notifications;
+    public String getAlarm() {
+        return alarm;
     }
 
-    public void setNotifications(String notifications) {
-        this.notifications = notifications;
+    public void setAlarm(String alarm) {
+        this.alarm = alarm;
     }
 
     public void setBreakInterval(int breakInterval) {
