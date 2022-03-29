@@ -248,6 +248,7 @@ public class PomodoroMenuBar extends JMenuBar {
         loadSettings.addActionListener(loadSettingsListener);
 
         minimizeToTray.addActionListener(minimizeToTrayListener);
+        minimizeToTray.setIcon(Images.systemTray);
         autoBreaks.addActionListener(notificationListener);
         autoPomodoro.addActionListener(notificationListener);
 

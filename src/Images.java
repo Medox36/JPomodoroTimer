@@ -11,4 +11,5 @@ public class Images {
     protected static ImageIcon settingsLoad = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/open-file.png")));
     protected static ImageIcon notification = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/notification.png")));
     protected static ImageIcon settingsIcon = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/setting-lines.png")));
+    protected static ImageIcon systemTray = new ImageIcon(Objects.requireNonNull(PomodoroGUI.class.getResource("images/systemtray.png")));
 }
