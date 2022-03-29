@@ -118,7 +118,6 @@ public class PomodoroMenuBar extends JMenuBar {
             if (val == JFileChooser.APPROVE_OPTION) {
                 try {
                     settings.saveContentsToCustomFile(fileChooser.getSelectedFile());
-                    //TODO show a Dialog
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
