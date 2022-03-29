@@ -20,7 +20,7 @@ public class PomodoroMenuBar extends JMenuBar {
         this.pomodoroGUI = pomodoroGUI;
         settings = Settings.getInstance();
         JMenu settingsMenu = new JMenu();
-        JMenu notifications = new JMenu("Notifications");
+        JMenu alarms = new JMenu("Alarm");
         JMenu redTimes = new JMenu("Pomodoro Time");
         JMenu blueTimes = new JMenu("Short Break Time");
         JMenu darkBlueTimes = new JMenu("Long Break Time");
@@ -235,14 +235,14 @@ public class PomodoroMenuBar extends JMenuBar {
         digital.addActionListener(notificationListener);
         digital.setActionCommand("digital");
 
-        notifications.setIcon(Images.notification);
+        alarms.setIcon(Images.notification);
         ButtonGroup notificationGroup = new ButtonGroup();
         notificationGroup.add(off);
         notificationGroup.add(bell);
         notificationGroup.add(digital);
-        notifications.add(off);
-        notifications.add(bell);
-        notifications.add(digital);
+        alarms.add(off);
+        alarms.add(bell);
+        alarms.add(digital);
 
         saveSettings.addActionListener(saveSettingsListener);
         loadSettings.addActionListener(loadSettingsListener);
@@ -259,7 +259,7 @@ public class PomodoroMenuBar extends JMenuBar {
         settingsMenu.add(darkBlueTimes);
         settingsMenu.add(breakInterval);
         settingsMenu.addSeparator();
-        settingsMenu.add(notifications);
+        settingsMenu.add(alarms);
         settingsMenu.addSeparator();
         settingsMenu.add(minimizeToTray);
         settingsMenu.addSeparator();
