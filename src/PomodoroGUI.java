@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class PomodoroGUI extends JFrame{
     private final PomodoroMenuBar menuBar;
@@ -58,6 +61,18 @@ public class PomodoroGUI extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Pomodoro Timer");
         setIconImage(Images.frameIcon.getImage());
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (!settings.isMinimizeToTray()) {
+                    try {
+                        settings.saveToStandardFile();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
 
         //red parts
         rootRed.setLayout(null);
@@ -157,6 +172,11 @@ public class PomodoroGUI extends JFrame{
         menuBar.setAutoPomodoro(settings.isAutoPomodoros());
         popUpMenu.setMute(settings.isMuted());
         Start.getTrayIcon().onSettingsChanged();
+        try {
+            settings.saveToStandardFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setPopUpMenu(PopUpMenu popUpMenu) {

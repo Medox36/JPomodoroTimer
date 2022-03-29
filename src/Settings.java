@@ -106,13 +106,17 @@ public class Settings {
         autoPomodoros = Boolean.parseBoolean(fr.readLine());
     }
 
+    public void saveToStandardFile() throws IOException {
+        saveContentsToCustomFile(new File("settings.txt"));
+    }
+
     public void saveContentsToCustomFile(File file) throws IOException {
         saveToFile(new FileWriter(file));
     }
 
     private void saveToFile(FileWriter fw) throws IOException {
         String l = System.lineSeparator();
-        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + alarm + l + breakInterval + l + minimizeToTray + l + autoBreaks + l + autoPomodoros;
+        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + alarm + l + breakInterval + l + muted + l + minimizeToTray + l + autoBreaks + l + autoPomodoros;
         fw.write(str);
         fw.flush();
         fw.close();

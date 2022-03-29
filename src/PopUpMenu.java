@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 
 public class PopUpMenu extends PopupMenu {
     private final MenuItem open, setting, exit;
@@ -31,7 +32,11 @@ public class PopUpMenu extends PopupMenu {
             } else if (e.getSource().equals(notifications)) {
                 Settings.getInstance().setMuted(((CheckboxMenuItem) e.getSource()).getState());
             } else if (e.getSource().equals(exit)) {
-                //TODO save settings and close
+                try {
+                    Settings.getInstance().saveToStandardFile();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 pomodoroGUI.dispatchEvent(new WindowEvent(pomodoroGUI, WindowEvent.WINDOW_CLOSING));
                 pomodoroGUI.setVisible(false);
                 pomodoroGUI.dispose();
