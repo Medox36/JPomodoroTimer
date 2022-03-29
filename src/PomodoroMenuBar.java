@@ -83,18 +83,7 @@ public class PomodoroMenuBar extends JMenuBar {
         ActionListener breakIntervalListener = e -> new CustomNumber();
         ActionListener minimizeToTrayListener = e -> {
             Settings.getInstance().setMinimizeToTray(minimizeToTray.getState());
-            if (!Settings.getInstance().isMinimizeToTray()) {
-                TrayIcon[] trayIcons = SystemTray.getSystemTray().getTrayIcons();
-                for (TrayIcon trayIcon : trayIcons) {
-                    if (trayIcon.equals(Start.getTrayIcon())) {
-                        SystemTray.getSystemTray().remove(trayIcon);
-                        break;
-                    }
-                }
-                Start.getTrayIcon().runWithoutTray();
-            } else {
-                Start.getTrayIcon().addTrayOnSettingsChange();
-            }
+            Start.getTrayIcon().onSettingsChanged();
         };
         ActionListener saveSettingsListener = e -> {
             try {

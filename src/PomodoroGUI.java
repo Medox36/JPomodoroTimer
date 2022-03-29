@@ -156,6 +156,7 @@ public class PomodoroGUI extends JFrame{
         menuBar.setAutoBreaks(settings.isAutoBreaks());
         menuBar.setAutoPomodoro(settings.isAutoPomodoros());
         popUpMenu.setMute(settings.isMuted());
+        Start.getTrayIcon().onSettingsChanged();
     }
 
     public void setPopUpMenu(PopUpMenu popUpMenu) {

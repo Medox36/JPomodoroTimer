@@ -34,12 +34,27 @@ public class Tray extends TrayIcon {
         }
     }
 
-    public void runWithoutTray() {
+    private void runWithoutTray() {
         pomodoroGUI.setVisible(true);
         pomodoroGUI.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void addTrayOnSettingsChange() {
+    public void onSettingsChanged() {
+        if (!Settings.getInstance().isMinimizeToTray()) {
+            TrayIcon[] trayIcons = SystemTray.getSystemTray().getTrayIcons();
+            for (TrayIcon trayIcon : trayIcons) {
+                if (trayIcon.equals(Start.getTrayIcon())) {
+                    SystemTray.getSystemTray().remove(trayIcon);
+                    break;
+                }
+            }
+            runWithoutTray();
+        } else {
+            addTrayOnSettingsChange();
+        }
+    }
+
+    private void addTrayOnSettingsChange() {
         if (SystemTray.isSupported() && Settings.getInstance().isMinimizeToTray()) {
             try {
                 SystemTray.getSystemTray().add(this);
