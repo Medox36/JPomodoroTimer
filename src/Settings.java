@@ -8,6 +8,7 @@ public class Settings {
     private String darkBlueMin, darkBlueSec;
     private String notifications;
     private int breakInterval;
+    private boolean muted;
     private boolean minimizeToTray;
     private boolean autoBreaks;
     private boolean autoPomodoros;
@@ -99,6 +100,7 @@ public class Settings {
         } catch (NumberFormatException e) {
             breakInterval = 3;
         }
+        muted = Boolean.parseBoolean(fr.readLine());
         minimizeToTray = Boolean.parseBoolean(fr.readLine());
         autoBreaks = Boolean.parseBoolean(fr.readLine());
         autoPomodoros = Boolean.parseBoolean(fr.readLine());
@@ -125,6 +127,7 @@ public class Settings {
         darkBlueSec = "00";
         notifications = "off";
         breakInterval = 3;
+        muted = false;
         minimizeToTray = true;
         autoBreaks = false;
         autoPomodoros = false;
@@ -144,6 +147,10 @@ public class Settings {
 
     public int getBreakInterval() {
         return breakInterval;
+    }
+
+    public boolean isMuted() {
+        return muted;
     }
 
     public boolean isMinimizeToTray() {
@@ -168,6 +175,10 @@ public class Settings {
 
     public void setBreakInterval(int breakInterval) {
         this.breakInterval = breakInterval;
+    }
+
+    public void setMuted(boolean muted) {
+        this.muted = muted;
     }
 
     public void setMinimizeToTray(boolean minimizeToTray) {

@@ -51,6 +51,8 @@ public class Tray extends TrayIcon {
     }
 
     private void showTrayMessage() {
-        displayMessage("Pomodoro Timer", "The Pomodoro-Application is now running!", MessageType.INFO);
+        if (!Settings.getInstance().isMuted()) {
+            displayMessage("Pomodoro Timer", "The Pomodoro-Application is now running!", MessageType.INFO);
+        }
     }
 }
