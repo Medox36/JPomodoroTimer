@@ -12,6 +12,7 @@ public class PomodoroMenuBar extends JMenuBar {
     private final Settings settings;
     private final PomodoroGUI pomodoroGUI;
     private final JRadioButtonMenuItem off, bell, digital;
+    private final JCheckBoxMenuItem minimizeToTray;
     private final JCheckBoxMenuItem autoBreaks;
     private final JCheckBoxMenuItem autoPomodoro;
 
@@ -42,6 +43,7 @@ public class PomodoroMenuBar extends JMenuBar {
         JMenuItem darkBlue15 = new JMenuItem("15 min");
         JMenuItem darkBlue10 = new JMenuItem("10 min");
         JMenuItem darkBlueCustom = new JMenuItem("Custom Time");
+        minimizeToTray = new JCheckBoxMenuItem("Minimize Application to Tray");
         autoBreaks = new JCheckBoxMenuItem("Auto start Breaks");
         autoPomodoro = new JCheckBoxMenuItem("Auto start Pomodoros");
 
@@ -79,6 +81,21 @@ public class PomodoroMenuBar extends JMenuBar {
             }
         };
         ActionListener breakIntervalListener = e -> new CustomNumber();
+        ActionListener minimizeToTrayListener = e -> {
+            Settings.getInstance().setMinimizeToTray(minimizeToTray.getState());
+            if (!Settings.getInstance().isMinimizeToTray()) {
+                TrayIcon[] trayIcons = SystemTray.getSystemTray().getTrayIcons();
+                for (TrayIcon trayIcon : trayIcons) {
+                    if (trayIcon.equals(Start.getTrayIcon())) {
+                        SystemTray.getSystemTray().remove(trayIcon);
+                        break;
+                    }
+                }
+                Start.getTrayIcon().runWithoutTray();
+            } else {
+                Start.getTrayIcon().addTrayOnSettingsChange();
+            }
+        };
         ActionListener saveSettingsListener = e -> {
             try {
                 UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -230,6 +247,7 @@ public class PomodoroMenuBar extends JMenuBar {
         saveSettings.addActionListener(saveSettingsListener);
         loadSettings.addActionListener(loadSettingsListener);
 
+        minimizeToTray.addActionListener(minimizeToTrayListener);
         autoBreaks.addActionListener(notificationListener);
         autoPomodoro.addActionListener(notificationListener);
 
@@ -243,6 +261,8 @@ public class PomodoroMenuBar extends JMenuBar {
         settingsMenu.addSeparator();
         settingsMenu.add(notifications);
         settingsMenu.addSeparator();
+        settingsMenu.add(minimizeToTray);
+        settingsMenu.addSeparator();
         settingsMenu.add(saveSettings);
         settingsMenu.add(loadSettings);
 
@@ -250,6 +270,7 @@ public class PomodoroMenuBar extends JMenuBar {
         settingsMenu.setBackground(new Color(218, 206, 206));
 
         //checking Checkboxes if needed
+        minimizeToTray.setSelected(settings.isMinimizeToTray());
         autoBreaks.setSelected(settings.isAutoBreaks());
         autoPomodoro.setSelected(settings.isAutoPomodoros());
 

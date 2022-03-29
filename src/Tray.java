@@ -22,7 +22,7 @@ public class Tray extends TrayIcon {
     }
 
     private void addIfTrayIsSupported() {
-        if (SystemTray.isSupported()) {
+        if (SystemTray.isSupported() && Settings.getInstance().isMinimizeToTray()) {
             try {
                 SystemTray.getSystemTray().add(this);
                 showTrayMessage();
@@ -34,12 +34,23 @@ public class Tray extends TrayIcon {
         }
     }
 
-    private void runWithoutTray() {
+    public void runWithoutTray() {
         pomodoroGUI.setVisible(true);
         pomodoroGUI.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void showTrayMessage() {
+    public void addTrayOnSettingsChange() {
+        if (SystemTray.isSupported() && Settings.getInstance().isMinimizeToTray()) {
+            try {
+                SystemTray.getSystemTray().add(this);
+                pomodoroGUI.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+            } catch (AWTException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void showTrayMessage() {
         displayMessage("Pomodoro Timer", "The Pomodoro-Application is now running!", MessageType.INFO);
     }
 }
