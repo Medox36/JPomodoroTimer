@@ -59,7 +59,10 @@ public class PomodoroMenuBar extends JMenuBar {
         ActionListener redTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "30:00", "25:00", "20:00", "15:00" -> pomodoroGUI.getRedTimeLabel().setTime(str);
+                case "30:00", "25:00", "20:00", "15:00" -> {
+                    pomodoroGUI.getRedTimeLabel().setTime(str);
+                    Settings.getInstance().setRedTime(str);
+                }
                 case "custom" -> pomodoroGUI.setRedTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
@@ -67,7 +70,10 @@ public class PomodoroMenuBar extends JMenuBar {
         ActionListener blueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "15:00", "10:00", "05:00" -> pomodoroGUI.getBlueTimeLabel().setTime(str);
+                case "15:00", "10:00", "05:00" -> {
+                    pomodoroGUI.getBlueTimeLabel().setTime(str);
+                    Settings.getInstance().setBlueTime(str);
+                }
                 case "custom" -> pomodoroGUI.setBlueTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }
@@ -75,7 +81,10 @@ public class PomodoroMenuBar extends JMenuBar {
         ActionListener darkBlueTimeMenu = e -> {
             String str = e.getActionCommand();
             switch (str) {
-                case "20:00", "15:00", "10:00" -> pomodoroGUI.getDarkBlueTimeLabel().setTime(str);
+                case "20:00", "15:00", "10:00" -> {
+                    pomodoroGUI.getDarkBlueTimeLabel().setTime(str);
+                    Settings.getInstance().setDarkBlueTime(str);
+                }
                 case "custom" -> pomodoroGUI.setDarkBlueTimeWithFrame();
                 default -> throw new IllegalStateException("Unexpected value: " + str);
             }

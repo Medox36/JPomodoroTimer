@@ -6,6 +6,8 @@ public class CustomTime extends JFrame {
     private final PomodoroTimeLabel timeLabel;
     private final JSpinner minSpinner, secSpinner;
     private final PomodoroGUI gui;
+    private final ImageIcon icon;
+    private int minutes, seconds;
 
     public CustomTime(String title, PomodoroTimeLabel timeLabel, ImageIcon icon, PomodoroGUI gui) {
         super(title);
@@ -14,6 +16,7 @@ public class CustomTime extends JFrame {
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setIconImage(icon.getImage());
+        this.icon = icon;
         this.gui = gui;
         JPanel root = new JPanel();
 
@@ -63,14 +66,26 @@ public class CustomTime extends JFrame {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        int minutes = (int) minSpinner.getValue();
-        int seconds = (int) secSpinner.getValue();
+        minutes = (int) minSpinner.getValue();
+        seconds = (int) secSpinner.getValue();
         if (minutes == 0 && seconds == 0) {
             String message = "Combination of "+ minutes + " minutes and " + seconds + " seconds is not Possible!\nTimer will be finished instantly.\nAt least 1 second is required.";
             JOptionPane.showMessageDialog(this, message, "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             timeLabel.setTime(String.valueOf(minutes), String.valueOf(seconds));
+            setCorrectSettings();
             closeFrame();
+        }
+    }
+
+    private void setCorrectSettings() {
+        Settings settings = Settings.getInstance();
+        if (icon.equals(Images.tomato)) {
+            settings.setRedTime(String.valueOf(minutes), String.valueOf(seconds));
+        } else if (icon.equals(Images.coffeeCup)) {
+            settings.setBlueTime(String.valueOf(minutes), String.valueOf(seconds));
+        } else if (icon.equals(Images.coffeeCup2)) {
+            settings.setDarkBlueTime(String.valueOf(minutes), String.valueOf(seconds));
         }
     }
 

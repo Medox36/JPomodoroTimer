@@ -116,7 +116,9 @@ public class Settings {
 
     private void saveToFile(FileWriter fw) throws IOException {
         String l = System.lineSeparator();
-        String str = redMin + l + redSec + l + blueMin + l + blueSec + l + darkBlueMin + l + darkBlueSec + l + alarm + l + breakInterval + l + muted + l + minimizeToTray + l + autoBreaks + l + autoPomodoros;
+        String str = zeroFill(redMin) + l + zeroFill(redSec) + l + zeroFill(blueMin) + l + zeroFill(blueSec) + l
+                + zeroFill(darkBlueMin) + l + zeroFill(darkBlueSec) + l + alarm + l + breakInterval + l + muted + l
+                + minimizeToTray + l + autoBreaks + l + autoPomodoros;
         fw.write(str);
         fw.flush();
         fw.close();
@@ -135,6 +137,13 @@ public class Settings {
         minimizeToTray = true;
         autoBreaks = false;
         autoPomodoros = false;
+    }
+
+    private String zeroFill(String val) {
+        if (val.length() < 2)
+            return "0" + val;
+        else
+            return val;
     }
 
     public String getRedTime() {
@@ -171,6 +180,36 @@ public class Settings {
 
     public String getAlarm() {
         return alarm;
+    }
+
+    public void setRedTime(String redMin, String redSec) {
+        this.redMin = redMin;
+        this.redSec = redSec;
+    }
+
+    public void setRedTime(String time) {
+        this.redMin = String.valueOf(time.charAt(0)) + time.charAt(1);
+        this.redSec = String.valueOf(time.charAt(3)) + time.charAt(4);
+    }
+
+    public void setBlueTime(String blueMin, String blueSec) {
+        this.blueMin = blueMin;
+        this.blueSec = blueSec;
+    }
+
+    public void setBlueTime(String time) {
+        this.blueMin = String.valueOf(time.charAt(0)) + time.charAt(1);
+        this.blueSec = String.valueOf(time.charAt(3)) + time.charAt(4);
+    }
+
+    public void setDarkBlueTime(String darkBlueMin, String darkBlueSec) {
+        this.darkBlueMin = darkBlueMin;
+        this.darkBlueSec = darkBlueSec;
+    }
+
+    public void setDarkBlueTime(String time) {
+        this.darkBlueMin = String.valueOf(time.charAt(0)) + time.charAt(1);
+        this.darkBlueSec = String.valueOf(time.charAt(3)) + time.charAt(4);
     }
 
     public void setAlarm(String alarm) {
